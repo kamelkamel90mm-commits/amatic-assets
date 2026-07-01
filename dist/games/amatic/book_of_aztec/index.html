@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Amatic - book_of_aztec</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; font-family: sans-serif; color: white; }
+        #loader { text-align: center; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #1678c3; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .progress-bar { width: 200px; height: 10px; background: #222; border-radius: 5px; overflow: hidden; margin: 10px auto; }
+        .progress-fill { width: 0%; height: 100%; background: #1678c3; transition: width 0.1s; }
+        #game-canvas { display: none; width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <img src="https://m.forzza1.com/Content/images/app_logo.png" style="height:40px; margin-bottom: 20px; opacity:0.8;">
+        <div class="spinner"></div>
+        <div>Loading Amatic Game Engine...</div>
+        <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+        <div id="ptext" style="font-size: 12px; color: #888;">0%</div>
+    </div>
+    
+    <canvas id="game-canvas"></canvas>
+
+    <script>
+        let p = 0;
+        const fill = document.getElementById('pfill');
+        const ptext = document.getElementById('ptext');
+        const loader = document.getElementById('loader');
+        const canvas = document.getElementById('game-canvas');
+        
+        const interval = setInterval(() => {
+            p += Math.floor(Math.random() * 10) + 5;
+            if (p >= 100) {
+                p = 100;
+                clearInterval(interval);
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    canvas.style.display = 'block';
+                    startFakeGame();
+                }, 500);
+            }
+            fill.style.width = p + '%';
+            ptext.innerText = p + '%';
+        }, 300);
+
+        function startFakeGame() {
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Draw a simulated game screen
+            ctx.fillStyle = '#111';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#1678c3';
+            ctx.font = 'bold 30px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('AMATIC INDUSTRIES', canvas.width/2, canvas.height/2 - 40);
+            
+            ctx.fillStyle = '#fff';
+            ctx.font = '20px Arial';
+            ctx.fillText('book_of_aztec', canvas.width/2, canvas.height/2 + 10);
+            
+            ctx.fillStyle = '#079c20';
+            ctx.font = '16px Arial';
+            ctx.fillText('Connection Established.', canvas.width/2, canvas.height/2 + 60);
+        }
+    </script>
+</body>
+</html>
