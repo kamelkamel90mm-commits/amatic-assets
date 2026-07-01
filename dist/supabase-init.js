@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Fake email formatting since Supabase requires email by default
-            const email = username + '@forzza.local';
+            // Fake email formatting using a valid domain structure
+            const email = username.toLowerCase() + '@kamelcasino.com';
 
             try {
                 // Attempt login
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (error) {
-                    // If user not found, try registering them automatically (for demo purposes)
+                    // If user not found, try registering them automatically
                     if (error.message.includes("Invalid login")) {
                         const { data: regData, error: regError } = await supabase.auth.signUp({
                             email: email,
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         
                         if (regError) {
-                            alert("Error: " + regError.message);
+                            alert("Notice: " + regError.message);
                         } else {
                             alert("Account created successfully! Welcome " + username);
                             window.location.href = "index.html";
