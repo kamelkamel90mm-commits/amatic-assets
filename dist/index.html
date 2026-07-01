@@ -6,26 +6,29 @@
     <title>Forzza Mobile Home</title>
     <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-master/d8dcf95cacfe42e58a17c44c3d4953cf/"/>
     <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-custom/afad3c25f58b4bb1ac7366c519569fec/"/>
-    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/gaming-styles/acbeef27218247e5b1cb43b555c19eca/"/>
     <style>
+        @font-face {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
         /* Force Display for static HTML without jQM JS */
-        body.ui-mobile-viewport { background-color: #084772 !important; margin: 0; padding: 0; font-family: sans-serif; }
+        body.ui-mobile-viewport { background-color: #084772 !important; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
         .ui-page, .ui-page-active { display: block !important; visibility: visible !important; min-height: 100vh !important; background-color: #084772 !important; }
         .ui-loader { display: none !important; }
         
         .ui-header { background-color: #000 !important; border: none !important; height: 44px !important; position: fixed !important; top: 0 !important; width: 100% !important; z-index: 1000 !important; }
-        .ui-header .ui-title { font-size: 16px !important; margin: 0 !important; padding: 12px 0 !important; color: #fff !important; text-shadow: none !important; font-weight: normal !important; text-align: center; }
-        .ui-header .ui-btn-right { top: 6px !important; }
+        .ui-header .ui-title { font-size: 16px !important; margin: 0 !important; padding: 13px 0 !important; color: #fff !important; text-shadow: none !important; font-weight: normal !important; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;}
         
         .ui-content { padding: 44px 0 54px 0 !important; }
         
         /* Grid Adjustments */
-        .tw-grid { background: #fff !important; padding: 1px !important; gap: 1px !important; display: grid !important; grid-template-columns: repeat(3, 1fr) !important; }
+        .tw-grid { background: #fff !important; padding: 1px 0 !important; gap: 1px !important; display: grid !important; grid-template-columns: repeat(3, 1fr) !important; }
         .tw-grid .ui-block-a, .tw-grid .ui-block-b, .tw-grid .ui-block-c { 
             background: #1678c3 !important; 
             margin-bottom: 0 !important; 
             border-right: none !important;
-            height: 130px !important;
+            height: 31vw !important; /* Make it responsive and perfectly square/proportional */
+            max-height: 135px;
+            min-height: 110px;
             position: relative !important;
             float: none !important;
             width: 100% !important;
@@ -39,77 +42,82 @@
             text-shadow: none !important;
             font-weight: 300 !important;
             font-size: 13px !important;
-            padding: 15px 10px 10px 10px !important;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            padding: 0 !important;
+            margin: 0 !important;
             height: 100% !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: space-between !important;
-            align-items: flex-start !important;
+            align-items: center !important; /* Center horizontally */
             text-align: left !important;
             width: 100% !important;
             box-sizing: border-box;
             border-radius: 0 !important;
+            position: relative;
         }
         .tw-grid .ui-btn span {
             width: 100%;
             text-align: left;
             position: absolute;
-            bottom: 10px;
-            left: 10px;
+            bottom: 6px;
+            left: 8px;
+            font-size: 12px;
+            color: #e6e6e6; /* slight off-white like original */
         }
         
-        /* High-Res Icons to match the original */
+        /* High-Res Icons */
         .tw-icon {
-            width: 64px;
-            height: 64px;
+            width: 100%;
+            height: 50%;
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            margin: 0 auto;
-            align-self: center;
-            margin-top: 15px;
+            position: absolute;
+            top: 20%;
         }
         
-        .icon-sports { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000004.png'); width: 80px; }
-        .icon-live { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000000.png'); }
-        .icon-highlights { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000002.png'); }
-        .icon-live-casino { background-image: url('https://m.forzza1.com/Content/images/navigation/tw_live_casino_cards_2.png'); }
-        .icon-casino { background-image: url('https://m.forzza1.com/Content/images/navigation/tw_casino_slot.png'); width: 70px;}
-        .icon-virtual { background-image: url('https://m.forzza1.com/Content/images/navigation/virtual-sports.png'); width: 80px;}
-        .icon-results { background-image: url('https://m.forzza1.com/Content/images/sports/tw-results.png'); }
-        .icon-search { background-image: url('https://m.forzza1.com/Content/images/icons-png/search-white.png'); }
-        .icon-contact { background-image: url('https://m.forzza1.com/Content/images/icons-png/mail-white.png'); width: 70px;}
-        .icon-settings { background-image: url('https://m.forzza1.com/Content/images/navigation/tw-settings.png'); }
-        .icon-other { background-image: url('https://m.forzza1.com/Content/images/icons-png/info-white.png'); }
-        .icon-login { background-image: url('https://m.forzza1.com/Content/images/sports/tw-user.png'); width: 48px; }
+        /* Exact Original Icons */
+        .icon-sports { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000004.png'); width: 65%; left: 17.5%; top: 22%; }
+        .icon-live { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000000.png'); width: 45%; left: 27.5%; height: 55%; top: 15%; }
+        .icon-highlights { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000002.png'); width: 50%; left: 25%; }
+        .icon-live-casino { background-image: url('https://m.forzza1.com/Content/images/navigation/tw_live_casino_cards_2.png'); width: 48%; left: 26%; }
+        .icon-casino { background-image: url('https://m.forzza1.com/Content/images/navigation/tw_casino_slot.png'); width: 55%; left: 22.5%; }
+        .icon-virtual { background-image: url('https://m.forzza1.com/Content/images/navigation/virtual-sports.png'); width: 65%; left: 17.5%; top: 15%; }
+        .icon-results { background-image: url('https://m.forzza1.com/Content/images/sports/tw-results.png'); width: 42%; left: 29%; top: 22%; }
+        .icon-search { background-image: url('https://m.forzza1.com/Content/images/icons-png/search-white.png'); width: 42%; left: 29%; top: 22%; }
+        .icon-contact { background-image: url('https://m.forzza1.com/Content/images/icons-png/mail-white.png'); width: 52%; left: 24%; top: 28%; height: 35%; }
+        .icon-settings { background-image: url('https://m.forzza1.com/Content/images/navigation/tw-settings.png'); width: 42%; left: 29%; top: 22%; }
+        .icon-other { background-image: url('https://m.forzza1.com/Content/images/icons-png/info-white.png'); width: 42%; left: 29%; top: 22%; }
+        .icon-login { background-image: url('https://m.forzza1.com/Content/images/sports/tw-user.png'); width: 42%; left: 29%; top: 22%; }
 
         /* Footer */
-        #main_navbar { position: fixed !important; bottom: 0 !important; width: 100% !important; z-index: 1000 !important; background: #000 !important; border: none !important; }
+        #main_navbar { position: fixed !important; bottom: 0 !important; width: 100% !important; z-index: 1000 !important; background: #000 !important; border: none !important; border-top: 1px solid #333 !important;}
         #main_navbar .ui-grid-c { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 54px !important; }
         #main_navbar .ui-block-a, #main_navbar .ui-block-b, #main_navbar .ui-block-c, #main_navbar .ui-block-d {
             float: none !important; width: 100% !important;
         }
-        #main_navbar .ui-btn { border: none !important; border-right: 1px solid #222 !important; background-image: url("https://m.forzza1.com/Content/images/navigation/footerBG.png") !important; background-repeat: repeat-x !important; color: #fff !important; text-shadow: none !important; font-size: 11px !important; padding: 34px 0 0 0 !important; text-align: center !important; height: 100% !important; box-sizing: border-box !important; border-radius: 0 !important; font-weight: normal !important; }
+        #main_navbar .ui-btn { border: none !important; border-right: 1px solid #222 !important; background-image: url("https://m.forzza1.com/Content/images/navigation/footerBG.png") !important; background-repeat: repeat-x !important; color: #fff !important; text-shadow: none !important; font-size: 10px !important; padding: 36px 0 0 0 !important; text-align: center !important; height: 100% !important; box-sizing: border-box !important; border-radius: 0 !important; font-weight: normal !important; position: relative;}
         #main_navbar .ui-block-d .ui-btn { border-right: none !important; }
-        #main_navbar .ui-btn.active { background-color: #222 !important; }
+        #main_navbar .ui-btn.active { background-image: none !important; background-color: #222 !important; }
         #main_navbar .footer-icon { position: absolute !important; top: 8px !important; left: 50% !important; margin-left: -12px !important; width: 24px !important; height: 24px !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; }
         
         #main_navbar .icon-f-home { background-image: url('https://m.forzza1.com/Content/images/sports/tw-home.png'); }
         #main_navbar .icon-f-login { background-image: url('https://m.forzza1.com/Content/images/sports/tw-user.png'); }
-        #main_navbar .icon-f-sports { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000004.png'); width: 32px !important; margin-left: -16px !important; }
-        #main_navbar .icon-f-betslip { background-image: url('https://m.forzza1.com/Content/images/sports/tw-betslip.png'); }
+        #main_navbar .icon-f-sports { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000004.png'); width: 32px !important; margin-left: -16px !important; top: 12px !important; height: 16px !important;}
+        #main_navbar .icon-f-betslip { background-image: url('https://m.forzza1.com/Content/images/sports/tw-betslip.png'); width: 20px !important; margin-left: -10px !important;}
 
-        .badges { position: absolute !important; top: 2px !important; right: 5px !important; display: flex !important; gap: 2px !important; }
-        .badge { font-size: 11px !important; font-weight: bold !important; padding: 2px 4px !important; border-radius: 2px !important; color: white !important; }
+        .badges { position: absolute !important; top: 3px !important; right: 8px !important; display: flex !important; gap: 1px !important; }
+        .badge { font-size: 10px !important; font-weight: bold !important; padding: 1px 4px !important; border-radius: 3px !important; color: white !important; }
         .badge-blue { background-color: #1678c3 !important; }
         .badge-green { background-color: #079c20 !important; }
         
         .hamburger {
-            width: 24px; height: 20px;
-            position: absolute; right: 12px; top: 12px;
+            width: 24px; height: 16px;
+            position: absolute; right: 12px; top: 14px;
             display: flex; flex-direction: column; justify-content: space-between;
         }
-        .hamburger span { display: block; height: 3px; width: 100%; background: #fff; border-radius: 1px; }
+        .hamburger span { display: block; height: 3px; width: 100%; background: #fff; }
 
     </style>
 </head>
