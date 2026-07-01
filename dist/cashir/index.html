@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cashier POS | Control Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: '#1678c3', dark: '#0b1120', panel: '#1e293b', accent: '#079c20', alert: '#ef4444' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="bg-dark text-slate-300 font-sans antialiased pb-20">
+    
+    <!-- Top Header -->
+    <header class="fixed top-0 w-full glass-panel z-50 px-4 py-3 flex justify-between items-center shadow-lg border-b border-slate-800">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded bg-accent flex items-center justify-center text-white font-bold">
+                <i class="fa-solid fa-cash-register"></i>
+            </div>
+            <div>
+                <h1 class="text-sm font-bold text-white leading-tight">Cashier POS</h1>
+                <p class="text-xs text-slate-400">Desk #4</p>
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <button class="text-slate-400 hover:text-white"><i class="fa-solid fa-power-off text-xl"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20 px-4">
+        
+        <!-- Cash Drawer Stats -->
+        <div class="glass-panel rounded-2xl mb-6 flex overflow-hidden">
+            <div class="w-1/2 p-4 border-r border-slate-800 flex flex-col items-center justify-center">
+                <span class="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Shift Total</span>
+                <span class="text-xl font-bold text-accent">+ 8,240.00</span>
+            </div>
+            <div class="w-1/2 p-4 flex flex-col items-center justify-center">
+                <span class="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Cash in Drawer</span>
+                <span class="text-xl font-bold text-white">12,500.00</span>
+            </div>
+        </div>
+
+        <!-- POS Actions -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <button class="bg-accent hover:bg-green-600 text-white p-4 rounded-xl font-bold transition shadow-lg flex flex-col items-center justify-center gap-2">
+                <i class="fa-solid fa-hand-holding-dollar text-2xl"></i>
+                Deposit (IN)
+            </button>
+            <button class="bg-alert hover:bg-red-600 text-white p-4 rounded-xl font-bold transition shadow-lg flex flex-col items-center justify-center gap-2">
+                <i class="fa-solid fa-money-bill-wave text-2xl"></i>
+                Withdraw (OUT)
+            </button>
+        </div>
+
+        <!-- Find User -->
+        <div class="glass-panel p-2 rounded-xl mb-6 flex items-center border border-slate-700 focus-within:border-brand transition">
+            <i class="fa-solid fa-magnifying-glass text-slate-500 ml-2"></i>
+            <input type="text" placeholder="Search username or ID..." class="bg-transparent border-none outline-none text-white px-3 py-2 w-full text-sm placeholder-slate-500">
+            <button class="bg-brand text-white px-3 py-1.5 rounded-lg text-xs font-medium">Find</button>
+        </div>
+
+        <!-- Pending Requests -->
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pending Requests</h2>
+            <span class="bg-alert text-white text-[9px] px-2 py-0.5 rounded-full">2 New</span>
+        </div>
+        
+        <div class="space-y-3">
+            <!-- Request Card 1 -->
+            <div class="glass-panel p-3 rounded-xl border-l-4 border-alert">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-down text-alert"></i>
+                        <span class="text-sm font-bold text-white">Withdrawal</span>
+                    </div>
+                    <span class="text-xs text-slate-400">2 mins ago</span>
+                </div>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <div class="text-xs text-slate-300">User: <span class="font-medium text-white">kamel90</span></div>
+                        <div class="text-lg font-bold text-white">€ 200.00</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="w-8 h-8 rounded bg-slate-700 text-white"><i class="fa-solid fa-xmark"></i></button>
+                        <button class="w-8 h-8 rounded bg-accent text-white"><i class="fa-solid fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Request Card 2 -->
+            <div class="glass-panel p-3 rounded-xl border-l-4 border-accent">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-up text-accent"></i>
+                        <span class="text-sm font-bold text-white">Deposit</span>
+                    </div>
+                    <span class="text-xs text-slate-400">15 mins ago</span>
+                </div>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <div class="text-xs text-slate-300">User: <span class="font-medium text-white">ali_tunis</span></div>
+                        <div class="text-lg font-bold text-white">€ 50.00</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="w-8 h-8 rounded bg-slate-700 text-white"><i class="fa-solid fa-xmark"></i></button>
+                        <button class="w-8 h-8 rounded bg-accent text-white"><i class="fa-solid fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="fixed bottom-0 w-full glass-panel border-t border-slate-800 flex justify-around items-center px-2 py-3 z-50">
+        <a href="/cashir" class="flex flex-col items-center text-accent">
+            <i class="fa-solid fa-cash-register mb-1"></i>
+            <span class="text-[10px]">Terminal</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-slate-500 hover:text-slate-300">
+            <i class="fa-solid fa-list-check mb-1"></i>
+            <span class="text-[10px]">Requests</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-slate-500 hover:text-slate-300">
+            <i class="fa-solid fa-clock-rotate-left mb-1"></i>
+            <span class="text-[10px]">History</span>
+        </a>
+    </nav>
+</body>
+</html>

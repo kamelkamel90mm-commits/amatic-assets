@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agent Backend | Control Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: '#1678c3', dark: '#0b1120', panel: '#1e293b', accent: '#079c20' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="bg-dark text-slate-300 font-sans antialiased pb-20">
+    
+    <!-- Top Header -->
+    <header class="fixed top-0 w-full glass-panel z-50 px-4 py-3 flex justify-between items-center shadow-lg border-b border-slate-800">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-bold">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+                <h1 class="text-sm font-bold text-white leading-tight">Agent Dashboard</h1>
+                <p class="text-xs text-accent">ID: AGT-99403</p>
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <button class="text-slate-400 hover:text-white"><i class="fa-solid fa-right-from-bracket text-xl"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20 px-4">
+        <!-- Balance Card -->
+        <div class="glass-panel p-5 rounded-2xl mb-6 bg-gradient-to-br from-brand/20 to-dark border border-brand/30">
+            <div class="flex justify-between items-start mb-2">
+                <div class="text-slate-300 text-sm"><i class="fa-solid fa-wallet mr-1"></i> Available Credits</div>
+                <div class="bg-brand text-white text-[10px] px-2 py-1 rounded">EUR</div>
+            </div>
+            <div class="text-3xl font-bold text-white mb-4">4,500.00</div>
+            
+            <div class="grid grid-cols-2 gap-3 pt-3 border-t border-brand/20">
+                <button class="bg-brand hover:bg-blue-600 text-white text-sm py-2 rounded-lg font-medium transition flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Send
+                </button>
+                <button class="bg-slate-700 hover:bg-slate-600 text-white text-sm py-2 rounded-lg font-medium transition flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-arrow-down-to-line"></i> Receive
+                </button>
+            </div>
+        </div>
+
+        <!-- Network Stats -->
+        <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">My Network</h2>
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="glass-panel p-4 rounded-xl">
+                <div class="text-slate-400 text-xs mb-1">Total Players</div>
+                <div class="text-xl font-bold text-white">342</div>
+                <div class="text-xs text-accent mt-1">+12 this month</div>
+            </div>
+            <div class="glass-panel p-4 rounded-xl">
+                <div class="text-slate-400 text-xs mb-1">Commission</div>
+                <div class="text-xl font-bold text-accent">€ 845.50</div>
+                <div class="text-xs text-slate-400 mt-1">Pending payout</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Actions</h2>
+        <div class="grid grid-cols-3 gap-2 mb-6">
+            <button class="flex flex-col items-center justify-center glass-panel p-3 rounded-xl hover:bg-panel transition">
+                <i class="fa-solid fa-user-plus text-white text-xl mb-2"></i>
+                <span class="text-[10px]">Create Player</span>
+            </button>
+            <button class="flex flex-col items-center justify-center glass-panel p-3 rounded-xl hover:bg-panel transition">
+                <i class="fa-solid fa-users text-white text-xl mb-2"></i>
+                <span class="text-[10px]">My Players</span>
+            </button>
+            <button class="flex flex-col items-center justify-center glass-panel p-3 rounded-xl hover:bg-panel transition">
+                <i class="fa-solid fa-clock-rotate-left text-white text-xl mb-2"></i>
+                <span class="text-[10px]">History</span>
+            </button>
+        </div>
+
+        <!-- Player List -->
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Recent Players</h2>
+            <a href="#" class="text-xs text-brand">View All</a>
+        </div>
+        <div class="glass-panel rounded-xl overflow-hidden">
+            <div class="p-3 border-b border-slate-800 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-white"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <div class="text-sm text-white font-medium">player_hatem</div>
+                        <div class="text-[10px] text-accent">Active • Bal: 150.00</div>
+                    </div>
+                </div>
+                <button class="w-8 h-8 rounded bg-brand/20 text-brand flex items-center justify-center"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+            <div class="p-3 border-b border-slate-800 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-white"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <div class="text-sm text-white font-medium">ahmed_vip</div>
+                        <div class="text-[10px] text-accent">Active • Bal: 2,400.00</div>
+                    </div>
+                </div>
+                <button class="w-8 h-8 rounded bg-brand/20 text-brand flex items-center justify-center"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="fixed bottom-0 w-full glass-panel border-t border-slate-800 flex justify-around items-center px-2 py-3 z-50">
+        <a href="/bakend" class="flex flex-col items-center text-brand">
+            <i class="fa-solid fa-chart-line mb-1"></i>
+            <span class="text-[10px]">Dashboard</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-slate-500 hover:text-slate-300">
+            <i class="fa-solid fa-users mb-1"></i>
+            <span class="text-[10px]">Players</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-slate-500 hover:text-slate-300">
+            <i class="fa-solid fa-money-bill-transfer mb-1"></i>
+            <span class="text-[10px]">Transfers</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-slate-500 hover:text-slate-300">
+            <i class="fa-solid fa-user-gear mb-1"></i>
+            <span class="text-[10px]">Profile</span>
+        </a>
+    </nav>
+</body>
+</html>
