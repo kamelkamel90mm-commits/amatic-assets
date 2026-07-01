@@ -8,9 +8,11 @@
     <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-custom/afad3c25f58b4bb1ac7366c519569fec/"/>
     <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/gaming-styles/acbeef27218247e5b1cb43b555c19eca/"/>
     <script type="text/javascript" src="https://m.forzza1.com/static-content/jquery-core/132923384d264bcda9f372cd605377ab/"></script>
+    <script>$(document).on("mobileinit", function() { $.mobile.ajaxEnabled = false; $.mobile.hashListeningEnabled = false; $.mobile.pushStateEnabled = false; $.mobile.showPageLoadingMsg = function(){}; $.mobile.hidePageLoadingMsg = function(){}; });</script>
     <script type="text/javascript" src="https://m.forzza1.com/static-content/mobile-config/dafabd15b6da4f4ead824d57e4142edf/"></script>
     <script type="text/javascript" src="https://m.forzza1.com/static-content/mobile-core/132923384d264bcda9f372cwerewr7ab/"></script>
     <style>
+        .ui-loader { display: none !important; }
         body.bnormal { background-color: #084772 !important; }
         .ui-page { background-color: #084772 !important; min-height: 100vh; }
         /* Fix missing icons logic if needed */
@@ -30,15 +32,15 @@
 
 <div class='panel left' data-rel='close' data-role='panel' data-position='right' data-animate='false' data-display='overlay' id='panel-right'>
 <ul data-role='listview'>
-<li data-icon='false'><a data-role='button' href='javascript:void(0);' data-rel='close' data-icon='delete' data-iconpos='right'>Close</a></li>
-<li data-icon='false'><a class='leftMenuItem' href='#language-selection'><div class='categoryIconContainer tw-language'></div>Settings</a></li>
+<li data-icon='false'><a data-role='button' data-ajax='false' href='javascript:void(0);' data-rel='close' data-icon='delete' data-iconpos='right'>Close</a></li>
+<li data-icon='false'><a class='leftMenuItem' data-ajax='false' href='settings.html'><div class='categoryIconContainer tw-language'></div>Settings</a></li>
 
-<li data-icon='false'><a class='leftMenuItem' href='#contact'><div class='categoryIconContainer tw-contact'></div>Contact</a></li>
-<li data-icon='false'><a class='leftMenuItem' href='#info'><div class='categoryIconContainer tw-msg-info-circle'></div>Info</a></li>
+<li data-icon='false'><a class='leftMenuItem' data-ajax='false' href='contact.html'><div class='categoryIconContainer tw-contact'></div>Contact</a></li>
+<li data-icon='false'><a class='leftMenuItem' data-ajax='false' href='info.html'><div class='categoryIconContainer tw-msg-info-circle'></div>Info</a></li>
 
-<li data-icon='false'><a class='leftMenuItem' href='#search'><div class='categoryIconContainer tw-search'></div>Search</a></li>
-<li data-icon='false'><a class='leftMenuItem' href='#affiliate-contact'><div class='categoryIconContainer tw-transactions'></div>Become affiliate</a></li>
-<li data-icon='false'><a class='leftMenuItem' href='#info/about-us'><div class='categoryIconContainer tw-settings'></div>About us</a></li>
+<li data-icon='false'><a class='leftMenuItem' data-ajax='false' href='search.html'><div class='categoryIconContainer tw-search'></div>Search</a></li>
+<li data-icon='false'><a class='leftMenuItem' data-ajax='false' href='#affiliate-contact'><div class='categoryIconContainer tw-transactions'></div>Become affiliate</a></li>
+<li data-icon='false'><a class='leftMenuItem' data-ajax='false' href='#info/about-us'><div class='categoryIconContainer tw-settings'></div>About us</a></li>
 </ul>
 </div>
 
@@ -67,7 +69,7 @@
 
 
 <li>
-<a href='#betting/event/10872246'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872246'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -108,7 +110,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872070'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872070'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -149,7 +151,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872088'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872088'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -190,7 +192,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872106'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872106'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -231,7 +233,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10857820'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10857820'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>Sweden / Allsvenskan</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -272,7 +274,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872310'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872310'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -313,7 +315,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10929146'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10929146'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -354,7 +356,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10853208'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10853208'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -395,7 +397,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10954092'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10954092'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -436,7 +438,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10855632'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10855632'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -477,7 +479,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10954094'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10954094'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -518,7 +520,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872546'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872546'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -559,7 +561,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872562'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872562'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -600,7 +602,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872278'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872278'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -641,7 +643,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872518'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872518'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -682,7 +684,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10872150'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10872150'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -723,7 +725,7 @@
                 </div>
             </li>
 <li>
-<a href='#betting/event/10871982'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<a data-ajax='false' href='#betting/event/10871982'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
 <tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
 <tr>
 <td rowspan='2' class="regular-date">
@@ -775,20 +777,20 @@
 <div data-role='navbar' class='ui-navbar-custom' id='main_navbar'>
 <ul>
 <li>
-<a href='#home' id='homeLink' data-icon='custom' class=''>
+<a data-ajax='false' href='index.html' id='homeLink' data-icon='custom' class=''>
 <div class='tw-menu-text'>&nbsp;</div>
 <span class='ui-btn-icon-top-home tw-home'>&nbsp;</span>
 </a>
 </li>
 
 <li>
-<a href='#login' id='loginLink' data-icon='custom' class=''>
+<a data-ajax='false' href='login.html' id='loginLink' data-icon='custom' class=''>
 <div class='tw-menu-text'>Login</div>
 <span class='ui-btn-icon-top-login tw-user'></span>
 </a>
 </li>
 <li>
-<a href='#betting/sports' id='betsLink' data-icon='custom' class='ui-btn-active'>
+<a data-ajax='false' href='sports.html' id='betsLink' data-icon='custom' class='ui-btn-active'>
 <div class='tw-menu-text'>Sports betting</div>
 <span class='ui-btn-icon-top-betting tw-betting'>&nbsp;</span>
 </a>
@@ -796,7 +798,7 @@
 
 <li>
 <span class='speech' id='fbsCounter' data-enhance='true'>0</span>
-<a href='#betslip' id='betslipLink' data-icon='custom' class=''>
+<a data-ajax='false' href='#betslip' id='betslipLink' data-icon='custom' class=''>
 <div class='tw-menu-text'>Bet slip</div>
 <span class='ui-btn-icon-top-betslip tw-betslip'>&nbsp;</span>
 </a>
