@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Forzza Mobile</title>
+    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-master/d8dcf95cacfe42e58a17c44c3d4953cf/"/>
+    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-custom/afad3c25f58b4bb1ac7366c519569fec/"/>
+    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/gaming-styles/acbeef27218247e5b1cb43b555c19eca/"/>
+    <script type="text/javascript" src="https://m.forzza1.com/static-content/jquery-core/132923384d264bcda9f372cd605377ab/"></script>
+    <script type="text/javascript" src="https://m.forzza1.com/static-content/mobile-config/dafabd15b6da4f4ead824d57e4142edf/"></script>
+    <script type="text/javascript" src="https://m.forzza1.com/static-content/mobile-core/132923384d264bcda9f372cwerewr7ab/"></script>
+    <style>
+        body.bnormal { background-color: #084772 !important; }
+        .ui-page { background-color: #084772 !important; min-height: 100vh; }
+        /* Fix missing icons logic if needed */
+        .tw-sport-1000000 { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000000.png') !important; }
+        .tw-sport-1000001 { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000001.png') !important; }
+        .tw-sport-1000002 { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000002.png') !important; }
+        .tw-sport-1000003 { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000003.png') !important; }
+        .tw-sport-1000004 { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000004.png') !important; }
+        .tw-sport-1000005 { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000005.png') !important; }
+        .tw-search { background-image: url('https://m.forzza1.com/Content/images/sports/tw-search.png') !important; }
+        .tw-contact { background-image: url('https://m.forzza1.com/Content/images/sports/tw-contact.png') !important; }
+    </style>
+</head>
+<body class="bnormal">
+
+<div data-role='page' id='betting' data-url='betting_aspx' data-lang='en'>
+
+<div class='panel left' data-rel='close' data-role='panel' data-position='right' data-animate='false' data-display='overlay' id='panel-right'>
+<ul data-role='listview'>
+<li data-icon='false'><a data-role='button' href='javascript:void(0);' data-rel='close' data-icon='delete' data-iconpos='right'>Close</a></li>
+<li data-icon='false'><a class='leftMenuItem' href='#language-selection'><div class='categoryIconContainer tw-language'></div>Settings</a></li>
+
+<li data-icon='false'><a class='leftMenuItem' href='#contact'><div class='categoryIconContainer tw-contact'></div>Contact</a></li>
+<li data-icon='false'><a class='leftMenuItem' href='#info'><div class='categoryIconContainer tw-msg-info-circle'></div>Info</a></li>
+
+<li data-icon='false'><a class='leftMenuItem' href='#search'><div class='categoryIconContainer tw-search'></div>Search</a></li>
+<li data-icon='false'><a class='leftMenuItem' href='#affiliate-contact'><div class='categoryIconContainer tw-transactions'></div>Become affiliate</a></li>
+<li data-icon='false'><a class='leftMenuItem' href='#info/about-us'><div class='categoryIconContainer tw-settings'></div>About us</a></li>
+</ul>
+</div>
+
+
+<div data-tap-toggle='false' data-role='header' data-theme='b' class='tw-header' id="navHeader" data-add-back-btn='true'>
+<h1 class='tw-header-title'>Sports betting</h1>
+<img src='Content/images/panel-home.png' class='ui-btn-right tw-home-right-panel' onclick="openHomeMenu();" alt='open panel' />
+</div>
+
+
+<div data-role='content' id='mobileMainContent'>
+    <div id='twMainContentView'>
+        
+
+
+
+
+
+<ul data-role='listview' data-inset='false' class='ui-icon-alt' data-filter='false' id='matchViewWrap'>
+                <li data-role='list-divider' data-theme='b' class='match-divider'>
+                <span class='menuBoxIconContainerMatch tw-sport-1000002'></span>
+                <span class='matchHeader'>Highlights</span>
+
+            </li>
+
+
+
+<li>
+<a href='#betting/event/10872246'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+01.07. 17:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">USA</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">109</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Bosnia &amp; Herzeg.</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872246'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107039640'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.38</span>
+        </div>
+        <div class='tw-bet' id='q-1107039642'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>5.35</span>
+        </div>
+        <div class='tw-bet' id='q-1107039644'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>8.65</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872070'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+02.07. 12:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Spain</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">107</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Austria</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872070'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107814984'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.35</span>
+        </div>
+        <div class='tw-bet' id='q-1107814986'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>5.10</span>
+        </div>
+        <div class='tw-bet' id='q-1107814988'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>9.45</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872088'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+02.07. 16:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Portugal</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">107</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Croatia</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872088'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107786670'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.78</span>
+        </div>
+        <div class='tw-bet' id='q-1107786672'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.60</span>
+        </div>
+        <div class='tw-bet' id='q-1107786674'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>4.90</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872106'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+02.07. 20:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Switzerland</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">110</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Algeria</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872106'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107818354'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>2.05</span>
+        </div>
+        <div class='tw-bet' id='q-1107818356'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.25</span>
+        </div>
+        <div class='tw-bet' id='q-1107818358'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>4.05</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10857820'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>Sweden / Allsvenskan</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 10:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">IK Sirius FK</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">69</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Mjallby AIF</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10857820'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1101248966'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.68</span>
+        </div>
+        <div class='tw-bet' id='q-1101248968'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.70</span>
+        </div>
+        <div class='tw-bet' id='q-1101248970'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>4.50</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872310'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 11:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Australia</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">109</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Egypt</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872310'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107343818'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>3.35</span>
+        </div>
+        <div class='tw-bet' id='q-1107343820'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>2.90</span>
+        </div>
+        <div class='tw-bet' id='q-1107343822'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>2.50</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10929146'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 11:45
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">St. Patrick&#39;s Athletic FC</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">66</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Galway FC</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10929146'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107237602'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.40</span>
+        </div>
+        <div class='tw-bet' id='q-1107237604'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>4.50</span>
+        </div>
+        <div class='tw-bet' id='q-1107237606'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>6.40</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10853208'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 11:45
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Shelbourne </div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">67</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Dundalk FC</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10853208'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107236822'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>2.15</span>
+        </div>
+        <div class='tw-bet' id='q-1107236824'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.60</span>
+        </div>
+        <div class='tw-bet' id='q-1107236826'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>2.90</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10954092'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 11:45
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Derry City </div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">66</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Waterford FC</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10954092'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107237936'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.43</span>
+        </div>
+        <div class='tw-bet' id='q-1107237938'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>4.40</span>
+        </div>
+        <div class='tw-bet' id='q-1107237940'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>6.40</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10855632'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 11:45
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Sligo Rovers </div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">66</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Shamrock Rovers </div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10855632'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107232504'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>5.10</span>
+        </div>
+        <div class='tw-bet' id='q-1107232506'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.90</span>
+        </div>
+        <div class='tw-bet' id='q-1107232508'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>1.58</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10954094'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>Ireland / Premier Division</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 11:45
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Drogheda United FC</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">67</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Bohemians Dublin </div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10954094'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107233270'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>4.45</span>
+        </div>
+        <div class='tw-bet' id='q-1107233272'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.55</span>
+        </div>
+        <div class='tw-bet' id='q-1107233274'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>1.73</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872546'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 15:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Argentina</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">105</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Cape Verde</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872546'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107307526'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.18</span>
+        </div>
+        <div class='tw-bet' id='q-1107307528'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>7.15</span>
+        </div>
+        <div class='tw-bet' id='q-1107307530'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>17.50</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872562'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+03.07. 18:30
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Colombia</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">108</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Ghana</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872562'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1107787176'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.55</span>
+        </div>
+        <div class='tw-bet' id='q-1107787178'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>4.05</span>
+        </div>
+        <div class='tw-bet' id='q-1107787180'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>7.15</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872278'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+04.07. 10:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Canada</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">109</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Morocco</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872278'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1108289162'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>4.85</span>
+        </div>
+        <div class='tw-bet' id='q-1108289164'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.45</span>
+        </div>
+        <div class='tw-bet' id='q-1108289166'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>1.84</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872518'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+04.07. 14:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Paraguay</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">100</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">France</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872518'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1108488400'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>14.75</span>
+        </div>
+        <div class='tw-bet' id='q-1108488402'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>6.90</span>
+        </div>
+        <div class='tw-bet' id='q-1108488404'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>1.21</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10872150'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+05.07. 13:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Brazil</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">104</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">Norway</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10872150'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1108467520'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>1.94</span>
+        </div>
+        <div class='tw-bet' id='q-1108467522'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.50</span>
+        </div>
+        <div class='tw-bet' id='q-1108467524'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>4.15</span>
+        </div>
+                </div>
+            </li>
+<li>
+<a href='#betting/event/10871982'><table class='tw-match-table' width='100%' cellspacing="0" cellpadding="0">
+<tr><td colspan='4' class='tw-upcoming-description'>FIFA World Cup 2026 / FIFA World Cup 2026 - Knockout stage</td></tr>
+<tr>
+<td rowspan='2' class="regular-date">
+<span class='tw-booked-live-icon'></span>
+05.07. 17:00
+</td>
+<td rowspan='2' class="tw-live-icon-container">
+<span class='menuBoxIconContainerMatchUpcoming tw-sport-1'></span>
+</td>
+<td><div class="last-minute-team-details-title">Mexico</div></td>
+<td rowspan='2' class='resultContainer'>
+<span class="ui-li-count ui-body-inherit">90</span>
+</td>
+</tr>
+<tr>
+<td><div class="last-minute-team-details-title">England</div></td>
+</tr>
+</table>
+</a></li>
+            <li data-mid='10871982'>
+                <div>
+                    <div class='match-curr-type-title'>3-way</div>
+                    <div class='match-curr-type-totals'></div>
+                </div>
+                <div class='odds-grid odds-format-a'>
+        <div class='tw-bet' id='q-1108662968'>
+            <span class='tw-tip'><span class='tw-tip-special'>1</span></span>
+            <span class='tw-odds'>3.30</span>
+        </div>
+        <div class='tw-bet' id='q-1108662970'>
+            <span class='tw-tip'><span class='tw-tip-special'>X</span></span>
+            <span class='tw-odds'>3.15</span>
+        </div>
+        <div class='tw-bet' id='q-1108662972'>
+            <span class='tw-tip'><span class='tw-tip-special'>2</span></span>
+            <span class='tw-odds'>2.40</span>
+        </div>
+                </div>
+            </li>
+</ul>
+
+        <button class='ui-btn ui-shadow ui-corner-all ui-icon-arrow-u ui-btn-icon-right tw-scroll-top' style='display:none' onclick='TwNavigation.PageTop(this);'>Top</button>
+    </div>
+    <div id='twInfoContentView' class='fieldHide'></div>
+</div>
+
+
+<div data-role='footer' data-theme='b' class='ui-navbar-custom' data-position='fixed' id='footer' data-tap-toggle='false'>
+<div data-role='navbar' class='ui-navbar-custom' id='main_navbar'>
+<ul>
+<li>
+<a href='#home' id='homeLink' data-icon='custom' class=''>
+<div class='tw-menu-text'>&nbsp;</div>
+<span class='ui-btn-icon-top-home tw-home'>&nbsp;</span>
+</a>
+</li>
+
+<li>
+<a href='#login' id='loginLink' data-icon='custom' class=''>
+<div class='tw-menu-text'>Login</div>
+<span class='ui-btn-icon-top-login tw-user'></span>
+</a>
+</li>
+<li>
+<a href='#betting/sports' id='betsLink' data-icon='custom' class='ui-btn-active'>
+<div class='tw-menu-text'>Sports betting</div>
+<span class='ui-btn-icon-top-betting tw-betting'>&nbsp;</span>
+</a>
+</li>
+
+<li>
+<span class='speech' id='fbsCounter' data-enhance='true'>0</span>
+<a href='#betslip' id='betslipLink' data-icon='custom' class=''>
+<div class='tw-menu-text'>Bet slip</div>
+<span class='ui-btn-icon-top-betslip tw-betslip'>&nbsp;</span>
+</a>
+<span class='speech' id='bsMaxQuota' data-enhance='true'>0.0</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>
