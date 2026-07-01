@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Forzza Mobile Home</title>
+    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-master/d8dcf95cacfe42e58a17c44c3d4953cf/"/>
+    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-custom/afad3c25f58b4bb1ac7366c519569fec/"/>
+    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/gaming-styles/acbeef27218247e5b1cb43b555c19eca/"/>
+    <style>
+        /* Base Overrides for static replica to mimic dynamic rendering perfectly */
+        body { background-color: #084772; margin: 0; padding: 0; overflow-x: hidden; }
+        .ui-page { background-color: #084772; min-height: 100vh; }
+        .ui-header { background-color: #000; border: none; height: 44px; }
+        .ui-header .ui-title { font-size: 16px; margin: 0; padding: 12px 0; color: #fff; text-shadow: none; font-weight: normal; }
+        .ui-header .ui-btn-right { top: 6px; }
+        .ui-content { padding: 1px 0 0 0; }
+        
+        .tw-grid { background: #fff; padding: 1px; gap: 1px; }
+        .tw-grid .ui-block-a, .tw-grid .ui-block-b, .tw-grid .ui-block-c { 
+            background: #006699; 
+            margin-bottom: 1px; 
+            border-right: 1px solid #fff;
+            height: 105px;
+            position: relative;
+        }
+        .tw-grid .ui-block-c { border-right: none; }
+        .tw-grid .ui-btn {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            color: #fff;
+            text-shadow: none;
+            font-weight: normal;
+            font-size: 11px;
+            padding: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tw-icon {
+            width: 44px;
+            height: 44px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 8px;
+        }
+        
+        /* Footer */
+        #main_navbar { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+        #main_navbar .ui-grid-c { height: 54px; }
+        #main_navbar .ui-btn { border: none; border-bottom: 1px solid #333; background-image: url("https://m.forzza1.com/Content/images/navigation/footerBG.png"); background-repeat: repeat-x; color: #fff; text-shadow: none; font-size: 11px; padding: 34px 0 0 0; }
+        #main_navbar .ui-btn.active { background-color: #111; }
+        #main_navbar .footer-icon { position: absolute; top: 8px; left: 50%; margin-left: -12px; width: 24px; height: 24px; background-size: contain; background-position: center; background-repeat: no-repeat; }
+        
+        .badges { position: absolute; top: 4px; right: 10%; display: flex; gap: 2px; }
+        .badge { font-size: 10px; font-weight: bold; padding: 1px 4px; border-radius: 3px; color: white; }
+        .badge-blue { background-color: #1678c3; }
+        .badge-green { background-color: #079c20; }
+    </style>
+</head>
+<body class="ui-mobile-viewport ui-overlay-a">
+    <div data-role="page" class="ui-page ui-page-theme-a ui-page-active">
+        <div data-role="header" class="ui-header">
+            <h1 class="ui-title" role="heading" aria-level="1">Home</h1>
+            <a href="#" class="ui-btn-right ui-btn ui-btn-icon-notext ui-icon-bars ui-corner-all ui-shadow">Menu</a>
+        </div>
+
+        <div role="main" class="ui-content">
+            <div class="ui-grid-b tw-grid" style="display: grid; grid-template-columns: repeat(3, 1fr);">
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/sports/tw-betting.png');"></div>
+                        <span>Sports betting</span>
+                    </a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/navigation/virtual-sports.png');"></div>
+                        <span>Live betting</span>
+                    </a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/icons-png/star-white.png');"></div>
+                        <span>Highlights</span>
+                    </a>
+                </div>
+                
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/navigation/tw_live_casino_cards_2.png');"></div>
+                        <span>Live casino</span>
+                    </a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/navigation/tw_casino_slot.png');"></div>
+                        <span>Casino</span>
+                    </a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/navigation/virtual-sports.png'); background-size: 75%;"></div>
+                        <span>Virtual sports</span>
+                    </a>
+                </div>
+
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/sports/tw-results.png');"></div>
+                        <span>Results</span>
+                    </a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/icons-png/search-white.png');"></div>
+                        <span>Search</span>
+                    </a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/icons-png/mail-white.png');"></div>
+                        <span>Contact</span>
+                    </a>
+                </div>
+
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/navigation/tw-settings.png');"></div>
+                        <span>Settings</span>
+                    </a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/icons-png/info-white.png');"></div>
+                        <span>Other</span>
+                    </a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn">
+                        <div class="tw-icon" style="background-image: url('https://m.forzza1.com/Content/images/sports/tw-user.png');"></div>
+                        <span>Login / Registration</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="main_navbar" data-role="footer">
+            <div class="ui-grid-c" style="display: grid; grid-template-columns: repeat(4, 1fr);">
+                <a href="#" class="ui-btn active">
+                    <div class="footer-icon" style="background-image: url('https://m.forzza1.com/Content/images/sports/tw-home.png');"></div>
+                    Home
+                </a>
+                <a href="#" class="ui-btn">
+                    <div class="footer-icon" style="background-image: url('https://m.forzza1.com/Content/images/sports/tw-user.png');"></div>
+                    Login
+                </a>
+                <a href="#" class="ui-btn">
+                    <div class="footer-icon" style="background-image: url('https://m.forzza1.com/Content/images/sports/tw-betting.png');"></div>
+                    Sports betting
+                </a>
+                <a href="#" class="ui-btn" style="position: relative;">
+                    <div class="badges">
+                        <div class="badge badge-blue">0.0</div>
+                        <div class="badge badge-green">0</div>
+                    </div>
+                    <div class="footer-icon" style="background-image: url('https://m.forzza1.com/Content/images/sports/tw-betslip.png');"></div>
+                    Bet slip
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
