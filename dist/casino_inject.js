@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Pick from our 10 downloaded games or fallback to a default
                         const available = ["admiral_nelson", "all_ways_candy", "all_ways_hot_fruits", "all_ways_joker", "all_ways_win", "allways_fruits", "anubis_gold", "aztec_emerald", "bells_on_fire", "book_of_aztec"];
                         let targetFolder = available.includes(gameName) ? gameName : "book_of_aztec";
+                        if(gameName.includes("crash")) targetFolder = "crash_test";
                         
                         iframe.src = `games/amatic/${targetFolder}/index.html`;
                     }
