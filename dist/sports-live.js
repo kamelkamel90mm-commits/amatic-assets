@@ -1,5 +1,5 @@
-// Real sports data UI for Poseidon/Forzza-style static pages.
-// Uses the Render backend so browser CORS and provider changes are controlled server-side.
+// Forzza-style real sports section for Poseidon.
+// Data comes from the Render backend; layout is intentionally close to the original mobile Forzza sports pages.
 (function () {
   'use strict';
 
@@ -8,12 +8,12 @@
     : 'https://poseidon-meganodes-backend.onrender.com';
 
   const SPORTS = [
-    { key: 'soccer', label: 'Soccer' },
-    { key: 'basketball', label: 'Basketball' },
-    { key: 'tennis', label: 'Tennis' },
-    { key: 'hockey', label: 'Ice Hockey' },
-    { key: 'football', label: 'American Football' },
-    { key: 'baseball', label: 'Baseball' }
+    { key: 'soccer', label: 'Soccer', icon: 'tw-sport-1000004' },
+    { key: 'basketball', label: 'Basketball', icon: 'tw-sport-1000003' },
+    { key: 'tennis', label: 'Tennis', icon: 'tw-sport-1000001' },
+    { key: 'hockey', label: 'Ice Hockey', icon: 'tw-sport-1000002' },
+    { key: 'football', label: 'American Football', icon: 'tw-sport-1000004' },
+    { key: 'baseball', label: 'Baseball', icon: 'tw-sport-1000005' }
   ];
 
   const state = {
@@ -21,79 +21,32 @@
     date: 'today',
     mode: detectMode(),
     events: [],
-    q: ''
+    q: '',
+    loading: false,
+    counts: {}
   };
 
   function detectMode() {
-    const path = location.pathname.toLowerCase();
-    if (path.includes('live')) return 'live';
-    if (path.includes('result')) return 'results';
-    if (path.includes('highlight')) return 'highlights';
+    const p = location.pathname.toLowerCase();
+    if (p.includes('live')) return 'live';
+    if (p.includes('result')) return 'results';
+    if (p.includes('highlight')) return 'highlights';
     return 'upcoming';
   }
 
-  function $(id) { return document.getElementById(id); }
-  function escapeHtml(value) {
-    return String(value == null ? '' : value)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-  }
+  function qs(id) { return document.getElementById(id); }
+  function qsa(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
+  function esc(v) { return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
 
-  function localTime(iso) {
-    if (!iso) return '';
+  function dateLabel(iso) {
     const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return String(iso).slice(11, 16);
+    if (Number.isNaN(d.getTime())) return String(iso || '').slice(5, 10).replace('-', '.');
+    return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.`;
+  }
+  function timeLabel(iso) {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return String(iso || '').slice(11, 16);
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
-
-  function localDate(iso) {
-    if (!iso) return '';
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return String(iso).slice(0, 10);
-    return d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
-  }
-
-  function addStyle() {
-    if ($('psSportsStyle')) return;
-    const s = document.createElement('style');
-    s.id = 'psSportsStyle';
-    s.textContent = `
-      #psSports{background:#084772;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:60vh;padding-bottom:12px;}
-      .ps-top{background:#063b62;padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.18);position:sticky;top:44px;z-index:11;}
-      .ps-title{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#d5efff;margin-bottom:8px;}
-      .ps-title strong{font-size:15px;color:#fff;}
-      .ps-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;}
-      .ps-nav a{display:block;text-align:center;text-decoration:none;color:#fff;background:#126eb3;border-radius:7px;padding:8px 4px;font-size:11px;border:1px solid rgba(255,255,255,.12);}
-      .ps-nav a.active{background:#11a7dd;color:#001827;font-weight:bold;}
-      .ps-filter{display:grid;grid-template-columns:1fr .8fr;gap:6px;margin-bottom:7px;}
-      .ps-filter select,.ps-filter input{width:100%;background:#052f51;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:7px;padding:9px 8px;font-size:12px;outline:0;}
-      .ps-dates{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
-      .ps-dates button{border:0;border-radius:7px;padding:8px 5px;background:#0d5d97;color:#fff;font-size:11px;}
-      .ps-dates button.active{background:#ffd36a;color:#06263f;font-weight:bold;}
-      .ps-loading,.ps-empty{margin:10px;padding:14px;text-align:center;color:#d7efff;background:#063458;border-radius:9px;}
-      .ps-league{background:#052f51;color:#e3f6ff;font-weight:bold;padding:8px 10px;font-size:12px;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.10);}
-      .ps-match{background:#0a568b;margin:0 0 1px 0;padding:9px 7px;display:grid;grid-template-columns:54px 1fr 128px;gap:7px;align-items:center;}
-      .ps-time{font-size:11px;color:#d7efff;text-align:center;line-height:1.35;}
-      .ps-live{display:inline-block;background:#f33;color:#fff;border-radius:999px;padding:2px 5px;font-size:9px;margin-top:3px;animation:psPulse 1.3s infinite;}
-      @keyframes psPulse{50%{opacity:.45}}
-      .ps-team{display:flex;justify-content:space-between;gap:5px;font-size:12px;line-height:1.55;color:#fff;}
-      .ps-team b{font-weight:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-      .ps-score{color:#ffd36a;font-weight:bold;min-width:18px;text-align:right;}
-      .ps-markets{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
-      .ps-odd{border:0;border-radius:5px;background:#e9f3f9;color:#043459;min-height:39px;font-size:10px;font-weight:bold;padding:3px 2px;}
-      .ps-odd span{display:block;color:#60798c;font-weight:normal;font-size:9px;}
-      .ps-odd:disabled{background:#2c6388;color:#9fc5dd;opacity:.8;}
-      .ps-odd:not(:disabled):active{transform:scale(.94);}
-      .ps-meta{font-size:9px;color:#b9dff5;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-      .ps-slip{position:fixed;left:8px;right:8px;bottom:60px;background:#001d32;color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:9999;max-width:504px;margin:0 auto;overflow:hidden;}
-      .ps-slip-head{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;background:#000;font-size:12px;font-weight:bold;}
-      .ps-slip-body{max-height:160px;overflow:auto;padding:8px 10px;font-size:11px;}
-      .ps-slip-item{border-bottom:1px solid rgba(255,255,255,.1);padding:5px 0;}
-      .ps-clear{border:0;background:#d93030;color:#fff;border-radius:5px;padding:5px 8px;font-size:10px;}
-      @media(max-width:360px){.ps-match{grid-template-columns:48px 1fr;}.ps-markets{grid-column:1/3}.ps-nav{grid-template-columns:repeat(2,1fr)}}
-      @media(min-width:640px){#psSports{max-width:520px;margin:0 auto}.ps-slip{max-width:504px}.ps-match{grid-template-columns:62px 1fr 150px}}
-    `;
-    document.head.appendChild(s);
   }
 
   function pageTitle() {
@@ -103,164 +56,267 @@
     return 'Sports betting';
   }
 
+  function addStyles() {
+    if (qs('fzSportsStyle')) return;
+    const s = document.createElement('style');
+    s.id = 'fzSportsStyle';
+    s.textContent = `
+      #fzSports{background:#084772;color:#fff;min-height:65vh;font-family:Arial,Helvetica,sans-serif;padding-bottom:8px;}
+      #fzSports *{box-sizing:border-box;}
+      .fz-home{margin:0;padding:0;list-style:none;background:#084772;border-top:1px solid #0b5d93;}
+      .fz-home li{height:46px;border-bottom:1px solid #063c63;background:#0a5a8f;}
+      .fz-home a{display:flex!important;align-items:center;height:46px;padding:0 9px!important;text-decoration:none!important;color:#fff!important;text-shadow:none!important;font-size:13px!important;font-weight:normal!important;background:linear-gradient(#0b68a5,#075184)!important;border:0!important;box-shadow:none!important;}
+      .fz-home .homeBox-span{flex:1;display:block;}
+      .fz-home .menuBoxIconContainer{width:30px;height:30px;background-size:contain;background-position:center;background-repeat:no-repeat;margin-right:10px;}
+      .fz-panel{background:#063e68;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(0,0,0,.35);position:sticky;top:44px;z-index:12;}
+      .fz-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#052f50;padding:1px;}
+      .fz-tabs a{display:block;text-align:center;background:#0a5b91;color:#d9f1ff;text-decoration:none;padding:9px 3px;font-size:11px;border:0;text-shadow:none;}
+      .fz-tabs a.active{background:#0096cf;color:#fff;font-weight:bold;}
+      .fz-date{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#052f50;padding:1px;}
+      .fz-date button{border:0;background:#0d6099;color:#fff;padding:8px 3px;font-size:11px;}
+      .fz-date button.active{background:#e7e7e7;color:#0b4772;font-weight:bold;}
+      .fz-search{display:flex;gap:6px;padding:7px;background:#073a62;}
+      .fz-search input{flex:1;border:1px solid #0a6aa8;background:#052b49;color:#fff;border-radius:0;padding:8px 9px;font-size:12px;outline:0;}
+      .fz-search button{border:0;background:#0b7dbe;color:#fff;padding:0 10px;font-size:12px;}
+      .fz-sport-list{margin:0;padding:0;list-style:none;background:#084772;}
+      .fz-sport-list li{border-bottom:1px solid #06395e;}
+      .fz-sport{display:flex;align-items:center;width:100%;height:42px;border:0;background:#0a5a8f;color:#fff;padding:0 9px;text-align:left;}
+      .fz-sport.active{background:#0875b8;}
+      .fz-sport .ico{width:27px;height:27px;background-size:contain;background-position:center;background-repeat:no-repeat;margin-right:8px;}
+      .fz-sport .name{flex:1;font-size:13px;}
+      .fz-sport .count{min-width:35px;text-align:right;color:#d4edff;font-size:12px;}
+      .fz-titlebar{height:31px;display:flex;align-items:center;background:#052f50;color:#e9f7ff;border-top:1px solid #0b659c;border-bottom:1px solid #031d31;padding:0 8px;font-size:12px;font-weight:bold;}
+      .fz-titlebar .right{margin-left:auto;color:#b8def5;font-size:11px;font-weight:normal;}
+      .fz-odds-head{display:grid;grid-template-columns:1fr 46px 46px 46px;gap:1px;background:#0a3150;color:#d9f1ff;font-size:10px;text-align:center;padding:0 6px 1px;}
+      .fz-odds-head span{background:#063e68;padding:5px 0;}
+      .fz-league{display:flex;align-items:center;min-height:34px;background:#063558;color:#fff;border-top:1px solid #0a6399;border-bottom:1px solid #02182a;padding:0 7px;font-size:12px;font-weight:bold;}
+      .fz-league .ball{width:18px;height:18px;background-size:contain;background-repeat:no-repeat;background-position:center;margin-right:6px;}
+      .fz-league .cnt{margin-left:auto;color:#c4e3f8;font-size:11px;font-weight:normal;}
+      .fz-event{display:grid;grid-template-columns:1fr 46px 46px 46px;gap:1px;background:#0b4168;border-bottom:1px solid #062f4c;padding:0 6px;color:#fff;}
+      .fz-event-main{display:grid;grid-template-columns:48px 1fr;min-height:58px;background:#0a5a8f;align-items:center;}
+      .fz-time{text-align:center;color:#d7efff;font-size:10px;line-height:1.35;border-right:1px solid rgba(255,255,255,.12);padding:4px 2px;}
+      .fz-live{display:inline-block;margin-top:2px;background:#e60000;color:#fff;border-radius:2px;padding:1px 4px;font-size:9px;animation:fzBlink 1.2s infinite;}
+      @keyframes fzBlink{50%{opacity:.45}}
+      .fz-teams{padding:5px 7px;min-width:0;}
+      .fz-team{display:flex;align-items:center;justify-content:space-between;gap:5px;line-height:18px;font-size:12px;white-space:nowrap;overflow:hidden;}
+      .fz-team b{font-weight:normal;overflow:hidden;text-overflow:ellipsis;}
+      .fz-score{color:#ffd36a;font-weight:bold;font-size:12px;min-width:20px;text-align:right;}
+      .fz-meta{font-size:9px;color:#b8ddf3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+      .fz-odd{border:0;border-radius:0;background:#e9edf1;color:#07456d;min-height:58px;font-size:12px;font-weight:bold;text-shadow:none;}
+      .fz-odd span{display:block;font-size:9px;color:#57738a;font-weight:normal;margin-bottom:3px;}
+      .fz-odd:disabled{background:#2a6289;color:#9dc5de;}
+      .fz-odd:not(:disabled):active,.fz-odd.selected{background:#ffd36a;color:#052f50;}
+      .fz-loading,.fz-empty{margin:0;padding:16px 10px;background:#0a5a8f;color:#d9f1ff;text-align:center;font-size:12px;border-top:1px solid #0a6399;}
+      .fz-note{padding:7px 8px;color:#b8ddf3;background:#052f50;font-size:10px;border-top:1px solid #0b659c;line-height:1.35;}
+      .fz-slip{position:fixed;left:0;right:0;bottom:54px;margin:auto;max-width:520px;z-index:99999;background:#031d31;color:#fff;border-top:2px solid #0096cf;box-shadow:0 -6px 18px rgba(0,0,0,.35);}
+      .fz-slip-head{height:34px;display:flex;align-items:center;background:#000;padding:0 9px;font-size:12px;font-weight:bold;}
+      .fz-slip-head button{margin-left:auto;border:0;background:#bd2222;color:#fff;border-radius:2px;padding:5px 8px;font-size:10px;}
+      .fz-slip-body{max-height:150px;overflow:auto;padding:6px 9px;font-size:11px;}
+      .fz-slip-item{border-bottom:1px solid rgba(255,255,255,.10);padding:5px 0;line-height:1.35;}
+      @media(max-width:360px){.fz-event{grid-template-columns:1fr 42px 42px 42px;padding:0 3px}.fz-event-main{grid-template-columns:42px 1fr}.fz-odd{font-size:11px}.fz-home a{font-size:12px!important}}
+    `;
+    document.head.appendChild(s);
+  }
+
   function shell() {
+    const showHome = state.mode === 'upcoming';
     return `
-      <div id="psSports">
-        <div class="ps-top">
-          <div class="ps-title"><strong>${pageTitle()}</strong><span id="psCount">Real data</span></div>
-          <div class="ps-nav">
-            <a href="sports.html" class="${state.mode === 'upcoming' ? 'active' : ''}">Sports</a>
-            <a href="live.html" class="${state.mode === 'live' ? 'active' : ''}">Live</a>
+      <div id="fzSports">
+        ${showHome ? `
+        <ul class="fz-home">
+          <li><a href="live.html"><span class="menuBoxIconContainer tw-sport-1000000"></span><span class="homeBox-span">Live betting</span></a></li>
+          <li><a href="highlights.html"><span class="menuBoxIconContainer tw-sport-1000002"></span><span class="homeBox-span">Highlights</span></a></li>
+          <li><a href="#fzEvents"><span class="menuBoxIconContainer tw-sport-1000004"></span><span class="homeBox-span">Today</span></a></li>
+        </ul>` : ''}
+        <div class="fz-panel">
+          <div class="fz-tabs">
+            <a href="sports.html" class="${state.mode === 'upcoming' ? 'active' : ''}">Sports betting</a>
+            <a href="live.html" class="${state.mode === 'live' ? 'active' : ''}">Live betting</a>
             <a href="highlights.html" class="${state.mode === 'highlights' ? 'active' : ''}">Highlights</a>
             <a href="results.html" class="${state.mode === 'results' ? 'active' : ''}">Results</a>
           </div>
-          <div class="ps-filter">
-            <select id="psSport">${SPORTS.map(s => `<option value="${s.key}">${s.label}</option>`).join('')}</select>
-            <input id="psSearch" type="search" placeholder="Search team / league...">
-          </div>
-          <div class="ps-dates">
+          <div class="fz-date">
             <button type="button" data-date="yesterday">Yesterday</button>
             <button type="button" data-date="today" class="active">Today</button>
             <button type="button" data-date="tomorrow">Tomorrow</button>
           </div>
+          <div class="fz-search">
+            <input id="fzSearch" type="search" placeholder="Search" autocomplete="off">
+            <button type="button" id="fzRefresh">Refresh</button>
+          </div>
         </div>
-        <div id="psList"><div class="ps-loading">Loading real sports data...</div></div>
+        <div class="fz-titlebar">Sports <span class="right" id="fzTotal">Loading...</span></div>
+        <ul class="fz-sport-list" id="fzSportList">
+          ${SPORTS.map(s => sportButtonHtml(s)).join('')}
+        </ul>
+        <div class="fz-titlebar" id="fzEvents">${pageTitle()} <span class="right" id="fzSource">Real data</span></div>
+        <div class="fz-odds-head"><span></span><span>1</span><span>X</span><span>2</span></div>
+        <div id="fzList"><div class="fz-loading">Loading events...</div></div>
       </div>`;
+  }
+
+  function sportButtonHtml(s) {
+    const count = state.counts[s.key];
+    return `<li><button type="button" class="fz-sport ${state.sport === s.key ? 'active' : ''}" data-sport="${s.key}"><span class="ico ${s.icon}"></span><span class="name">${s.label}</span><span class="count">${count == null ? '' : count}</span></button></li>`;
   }
 
   function filteredEvents() {
     const q = state.q.toLowerCase();
-    if (!q) return state.events;
-    return state.events.filter(e => `${e.league} ${e.homeTeam} ${e.awayTeam}`.toLowerCase().includes(q));
+    const list = q ? state.events.filter(e => `${e.league} ${e.homeTeam} ${e.awayTeam} ${e.venue || ''}`.toLowerCase().includes(q)) : state.events.slice();
+    return list;
   }
 
   function groupByLeague(events) {
-    const groups = [];
+    const out = [];
     const map = new Map();
     events.forEach(e => {
-      const league = e.league || 'Sports';
-      if (!map.has(league)) { map.set(league, []); groups.push([league, map.get(league)]); }
-      map.get(league).push(e);
+      const k = e.league || 'Sports';
+      if (!map.has(k)) { map.set(k, []); out.push([k, map.get(k)]); }
+      map.get(k).push(e);
     });
-    return groups;
+    return out;
   }
 
-  function marketButton(event, m) {
-    const disabled = !m.odds || m.odds === 'OFF';
-    const label = escapeHtml(m.label);
-    const odds = escapeHtml(m.odds || '—');
-    return `<button class="ps-odd" ${disabled ? 'disabled' : ''} data-event="${escapeHtml(event.id)}" data-market="${label}" data-odds="${odds}"><span>${label}</span>${odds}</button>`;
+  function marketHtml(event, m) {
+    const disabled = !m || !m.odds || m.odds === 'OFF';
+    const id = `${event.id}:${m ? m.label : ''}`;
+    const selected = getSlip().some(x => x.id === id);
+    return `<button type="button" class="fz-odd ${selected ? 'selected' : ''}" ${disabled ? 'disabled' : ''} data-event="${esc(event.id)}" data-market="${esc(m && m.label)}" data-odds="${esc(m && m.odds)}"><span>${esc(m && m.label)}</span>${esc((m && m.odds) || '—')}</button>`;
+  }
+
+  function eventHtml(e) {
+    const live = e.statusState === 'in' || /live|in progress/i.test(`${e.status || ''} ${e.statusDetail || ''}`);
+    const markets = (e.markets && e.markets.length ? e.markets : [{ label: '1' }, { label: 'X' }, { label: '2' }]).slice(0, 3);
+    while (markets.length < 3) markets.push({ label: markets.length === 1 ? 'X' : '2' });
+    return `<div class="fz-event" data-id="${esc(e.id)}">
+      <div class="fz-event-main">
+        <div class="fz-time"><div>${dateLabel(e.timestamp)}</div><div>${timeLabel(e.timestamp)}</div>${live ? '<span class="fz-live">LIVE</span>' : ''}</div>
+        <div class="fz-teams">
+          <div class="fz-team"><b>${esc(e.homeTeam)}</b><span class="fz-score">${e.homeScore == null ? '' : esc(e.homeScore)}</span></div>
+          <div class="fz-team"><b>${esc(e.awayTeam)}</b><span class="fz-score">${e.awayScore == null ? '' : esc(e.awayScore)}</span></div>
+          <div class="fz-meta">${esc(e.status || '')}${e.oddsProvider ? ' · ' + esc(e.oddsProvider) : ''}${e.venue ? ' · ' + esc(e.venue) : ''}</div>
+        </div>
+      </div>
+      ${markets.map(m => marketHtml(e, m)).join('')}
+    </div>`;
   }
 
   function render() {
-    const events = filteredEvents();
-    $('psCount').textContent = `${events.length} events`;
-    if (!events.length) {
-      $('psList').innerHTML = `<div class="ps-empty">No ${state.mode === 'live' ? 'live' : ''} real events found for this filter.</div>`;
+    const list = filteredEvents();
+    const total = qs('fzTotal');
+    if (total) total.textContent = `${list.length} events`;
+    const sportList = qs('fzSportList');
+    if (sportList) sportList.innerHTML = SPORTS.map(s => sportButtonHtml(s)).join('');
+    bindSportButtons();
+    const source = qs('fzSource');
+    if (source) source.textContent = list.length ? 'ESPN / TheSportsDB' : 'Real data';
+    const root = qs('fzList');
+    if (!root) return;
+    if (!list.length) {
+      root.innerHTML = `<div class="fz-empty">No ${state.mode === 'live' ? 'live ' : ''}events found.</div><div class="fz-note">Real sports data is shown only when available from providers.</div>`;
       updateSlip();
       return;
     }
-    $('psList').innerHTML = groupByLeague(events).map(([league, rows]) => `
-      <div class="ps-league">${escapeHtml(league)}</div>
-      ${rows.map(e => `
-        <div class="ps-match" data-id="${escapeHtml(e.id)}">
-          <div class="ps-time">
-            <div>${localDate(e.timestamp)}</div>
-            <div>${localTime(e.timestamp)}</div>
-            ${e.statusState === 'in' ? '<span class="ps-live">LIVE</span>' : `<div>${escapeHtml(e.status || '')}</div>`}
-          </div>
-          <div>
-            <div class="ps-team"><b>${escapeHtml(e.homeTeam)}</b><span class="ps-score">${e.homeScore == null ? '' : escapeHtml(e.homeScore)}</span></div>
-            <div class="ps-team"><b>${escapeHtml(e.awayTeam)}</b><span class="ps-score">${e.awayScore == null ? '' : escapeHtml(e.awayScore)}</span></div>
-            <div class="ps-meta">${escapeHtml(e.venue || e.source || '')}${e.oddsProvider ? ' · Odds: ' + escapeHtml(e.oddsProvider) : ''}</div>
-          </div>
-          <div class="ps-markets">${(e.markets || []).slice(0, 3).map(m => marketButton(e, m)).join('')}</div>
-        </div>`).join('')}
-    `).join('');
-    bindMarketClicks();
+    root.innerHTML = groupByLeague(list).map(([league, rows]) => `
+      <div class="fz-league"><span class="ball tw-sport-1000004"></span><span>${esc(league)}</span><span class="cnt">${rows.length}</span></div>
+      ${rows.map(eventHtml).join('')}
+    `).join('') + `<div class="fz-note">Events, scores and available odds are real provider data. Empty odds mean the provider has not published a price.</div>`;
+    bindOdds();
     updateSlip();
   }
 
-  function bindMarketClicks() {
-    document.querySelectorAll('.ps-odd:not([disabled])').forEach(btn => {
+  function getSlip() {
+    try { return JSON.parse(localStorage.getItem('poseidon_sports_slip') || '[]'); } catch (_) { return []; }
+  }
+
+  function saveSlip(slip) { localStorage.setItem('poseidon_sports_slip', JSON.stringify(slip.slice(-20))); }
+
+  function bindOdds() {
+    qsa('.fz-odd:not([disabled])').forEach(btn => {
       btn.onclick = () => {
-        const event = state.events.find(e => e.id === btn.dataset.event);
-        if (!event) return;
-        const item = {
-          id: `${event.id}:${btn.dataset.market}`,
-          event: `${event.homeTeam} vs ${event.awayTeam}`,
-          league: event.league,
-          market: btn.dataset.market,
-          odds: btn.dataset.odds,
-          time: event.timestamp
-        };
-        const slip = getSlip().filter(x => x.id !== item.id);
-        slip.push(item);
-        localStorage.setItem('poseidon_sports_slip', JSON.stringify(slip.slice(-12)));
-        updateSlip();
+        const e = state.events.find(x => x.id === btn.dataset.event);
+        if (!e) return;
+        const id = `${e.id}:${btn.dataset.market}`;
+        let slip = getSlip().filter(x => x.id !== id);
+        slip.push({ id, event: `${e.homeTeam} vs ${e.awayTeam}`, league: e.league, market: btn.dataset.market, odds: btn.dataset.odds, time: e.timestamp });
+        saveSlip(slip);
+        render();
       };
     });
   }
 
-  function getSlip() {
-    try { return JSON.parse(localStorage.getItem('poseidon_sports_slip') || '[]'); }
-    catch (_) { return []; }
-  }
-
   function updateFooterCounter() {
-    const count = getSlip().length;
+    const n = getSlip().length;
     const fbs = document.getElementById('fbsCounter');
-    if (fbs) fbs.textContent = String(count);
+    if (fbs) fbs.textContent = String(n);
   }
 
   function updateSlip() {
     updateFooterCounter();
-    let box = document.getElementById('psSlip');
+    let slipBox = qs('fzSlip');
     const slip = getSlip();
-    if (!slip.length) { if (box) box.remove(); return; }
-    if (!box) {
-      box = document.createElement('div');
-      box.id = 'psSlip';
-      box.className = 'ps-slip';
-      document.body.appendChild(box);
+    if (!slip.length) { if (slipBox) slipBox.remove(); return; }
+    if (!slipBox) {
+      slipBox = document.createElement('div');
+      slipBox.id = 'fzSlip';
+      slipBox.className = 'fz-slip';
+      document.body.appendChild(slipBox);
     }
-    box.innerHTML = `
-      <div class="ps-slip-head"><span>Bet slip (${slip.length})</span><button class="ps-clear" type="button">Clear</button></div>
-      <div class="ps-slip-body">${slip.map(i => `<div class="ps-slip-item"><b>${escapeHtml(i.market)}</b> @ ${escapeHtml(i.odds)}<br>${escapeHtml(i.event)}<br><span>${escapeHtml(i.league)}</span></div>`).join('')}<div class="ps-meta">Selections are saved locally. Real-money betting needs a licensed sportsbook wallet.</div></div>`;
-    box.querySelector('.ps-clear').onclick = () => { localStorage.removeItem('poseidon_sports_slip'); updateSlip(); };
+    slipBox.innerHTML = `<div class="fz-slip-head"><span>Bet slip (${slip.length})</span><button type="button">Clear</button></div><div class="fz-slip-body">${slip.map(i => `<div class="fz-slip-item"><b>${esc(i.market)}</b> @ ${esc(i.odds)}<br>${esc(i.event)}<br><span>${esc(i.league)}</span></div>`).join('')}</div>`;
+    slipBox.querySelector('button').onclick = () => { localStorage.removeItem('poseidon_sports_slip'); render(); };
   }
 
   async function load() {
-    const list = $('psList');
-    list.innerHTML = '<div class="ps-loading">Loading real sports data...</div>';
+    state.loading = true;
+    const root = qs('fzList');
+    if (root) root.innerHTML = '<div class="fz-loading">Loading events...</div>';
     const url = `${BACKEND}/sports/events?sport=${encodeURIComponent(state.sport)}&date=${encodeURIComponent(state.date)}&mode=${encodeURIComponent(state.mode)}`;
     try {
       const res = await fetch(url, { cache: 'no-store' });
       const data = await res.json();
       if (!res.ok || data.error) throw new Error(data.error || `HTTP ${res.status}`);
       state.events = data.events || [];
+      state.counts[state.sport] = state.events.length;
       render();
     } catch (err) {
-      list.innerHTML = `<div class="ps-empty">Sports data error: ${escapeHtml(err.message || err)}</div>`;
+      if (root) root.innerHTML = `<div class="fz-empty">Data error: ${esc(err.message || err)}</div>`;
+    } finally {
+      state.loading = false;
     }
   }
 
-  function init() {
-    const root = document.getElementById('twMainContentView') || document.getElementById('mobileMainContent') || document.body;
-    addStyle();
-    root.innerHTML = shell();
-    $('psSport').value = state.sport;
-    $('psSport').onchange = () => { state.sport = $('psSport').value; load(); };
-    $('psSearch').oninput = () => { state.q = $('psSearch').value.trim(); render(); };
-    document.querySelectorAll('.ps-dates button').forEach(btn => {
+  function bindSportButtons() {
+    qsa('.fz-sport').forEach(btn => {
       btn.onclick = () => {
-        document.querySelectorAll('.ps-dates button').forEach(b => b.classList.remove('active'));
+        state.sport = btn.dataset.sport;
+        load();
+      };
+    });
+  }
+
+  function bindGlobal() {
+    const search = qs('fzSearch');
+    if (search) search.oninput = () => { state.q = search.value.trim(); render(); };
+    const refresh = qs('fzRefresh');
+    if (refresh) refresh.onclick = () => load();
+    qsa('.fz-date button').forEach(btn => {
+      btn.onclick = () => {
+        qsa('.fz-date button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         state.date = btn.dataset.date;
         load();
       };
     });
+    bindSportButtons();
+  }
+
+  function init() {
+    const root = document.getElementById('twMainContentView') || document.getElementById('mobileMainContent') || document.body;
+    addStyles();
+    root.innerHTML = shell();
+    bindGlobal();
     load();
+    setInterval(() => { if (!state.loading && state.mode === 'live') load(); }, 45000);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
