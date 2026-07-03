@@ -237,12 +237,227 @@ function validateLaunchBody(body) {
   return { providerCode, userCode, gameSymbol, lang, returnUrl };
 }
 
+// ------------------------ Real sports data endpoints ------------------------
+const SPORTS_CACHE = new Map();
+
+function todayYMD(offsetDays = 0) {
+  const d = new Date(Date.now() + offsetDays * 86400000);
+  return d.toISOString().slice(0, 10);
+}
+
+function normalizeDateParam(value) {
+  const v = String(value || 'today').toLowerCase();
+  if (v === 'today') return todayYMD(0);
+  if (v === 'tomorrow') return todayYMD(1);
+  if (v === 'yesterday') return todayYMD(-1);
+  if (/^\d{8}$/.test(v)) return `${v.slice(0, 4)}-${v.slice(4, 6)}-${v.slice(6, 8)}`;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+  return todayYMD(0);
+}
+
+function compactDate(value) {
+  return String(value || '').replace(/-/g, '');
+}
+
+function sportsDbSportName(sport) {
+  const map = {
+    soccer: 'Soccer',
+    football: 'American Football',
+    basketball: 'Basketball',
+    tennis: 'Tennis',
+    hockey: 'Ice Hockey',
+    baseball: 'Baseball',
+    volleyball: 'Volleyball',
+    handball: 'Handball'
+  };
+  return map[String(sport || 'soccer').toLowerCase()] || 'Soccer';
+}
+
+function espnConfig(sport) {
+  const map = {
+    soccer: { sport: 'soccer', league: 'all' },
+    football: { sport: 'football', league: 'nfl' },
+    basketball: { sport: 'basketball', league: 'nba' },
+    hockey: { sport: 'hockey', league: 'nhl' },
+    baseball: { sport: 'baseball', league: 'mlb' }
+  };
+  return map[String(sport || 'soccer').toLowerCase()] || map.soccer;
+}
+
+async function cachedJson(url, ttlMs = 60000) {
+  const cached = SPORTS_CACHE.get(url);
+  if (cached && cached.expires > Date.now()) return cached.data;
+  const response = await fetch(url, { headers: { Accept: 'application/json' } });
+  if (!response.ok) throw new Error(`HTTP ${response.status} from ${url}`);
+  const data = await response.json();
+  SPORTS_CACHE.set(url, { data, expires: Date.now() + ttlMs });
+  return data;
+}
+
+function americanToDecimal(value) {
+  if (value == null) return null;
+  const raw = String(value).trim();
+  if (!raw || raw.toUpperCase() === 'OFF' || raw === '--') return null;
+  const n = Number(raw.replace('+', ''));
+  if (!Number.isFinite(n) || n === 0) return null;
+  const decimal = n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n);
+  return decimal.toFixed(2);
+}
+
+function eventKey(home, away, date) {
+  return `${String(date || '').slice(0, 10)}|${String(home || '').toLowerCase()}|${String(away || '').toLowerCase()}`;
+}
+
+function parseEspnEvents(data, sportKey, sourceName) {
+  return (data.events || []).map((event) => {
+    const competition = (event.competitions || [])[0] || {};
+    const competitors = competition.competitors || [];
+    const home = competitors.find(c => c.homeAway === 'home') || competitors[0] || {};
+    const away = competitors.find(c => c.homeAway === 'away') || competitors[1] || {};
+    const status = competition.status || event.status || {};
+    const statusType = status.type || {};
+    const odds = (competition.odds || []).find(Boolean) || null;
+    const moneyline = odds && odds.moneyline;
+    const pickOdds = (side) => side && ((side.current && side.current.odds) || (side.close && side.close.odds) || (side.open && side.open.odds));
+    const homeOdds = pickOdds(moneyline && moneyline.home);
+    const drawOdds = pickOdds(moneyline && moneyline.draw);
+    const awayOdds = pickOdds(moneyline && moneyline.away);
+    const markets = [
+      { key: '1', label: '1', odds: americanToDecimal(homeOdds), sourceOdds: homeOdds },
+      { key: 'X', label: 'X', odds: americanToDecimal(drawOdds), sourceOdds: drawOdds },
+      { key: '2', label: '2', odds: americanToDecimal(awayOdds), sourceOdds: awayOdds }
+    ];
+
+    return {
+      id: `espn:${event.id}`,
+      source: sourceName || 'ESPN',
+      sport: sportKey,
+      league: (data.leagues && data.leagues[0] && (data.leagues[0].name || data.leagues[0].abbreviation)) || (sportKey === 'soccer' ? 'Football / Soccer' : sportKey),
+      season: event.season && event.season.year,
+      date: event.date || competition.date,
+      timestamp: event.date || competition.date,
+      status: statusType.description || statusType.name || status.displayClock || 'Scheduled',
+      statusState: statusType.state || 'pre',
+      statusDetail: statusType.detail || status.displayClock || '',
+      venue: competition.venue && competition.venue.fullName,
+      homeTeam: home.team && (home.team.displayName || home.team.name || home.team.shortDisplayName),
+      awayTeam: away.team && (away.team.displayName || away.team.name || away.team.shortDisplayName),
+      homeScore: home.score === undefined ? null : home.score,
+      awayScore: away.score === undefined ? null : away.score,
+      markets,
+      oddsProvider: odds && odds.provider && (odds.provider.displayName || odds.provider.name),
+      rawOdds: odds && odds.details,
+      key: eventKey(home.team && (home.team.displayName || home.team.name), away.team && (away.team.displayName || away.team.name), event.date || competition.date)
+    };
+  }).filter(e => e.homeTeam && e.awayTeam);
+}
+
+function parseSportsDbEvents(data, sportKey) {
+  return (data.events || []).map((event) => {
+    const homeScore = event.intHomeScore == null || event.intHomeScore === '' ? null : String(event.intHomeScore);
+    const awayScore = event.intAwayScore == null || event.intAwayScore === '' ? null : String(event.intAwayScore);
+    const dt = event.strTimestamp || `${event.dateEvent || todayYMD()}T${event.strTime || '00:00:00'}`;
+    const hasScore = homeScore !== null || awayScore !== null;
+    const eventTime = new Date(dt).getTime();
+    const state = hasScore ? 'post' : (eventTime < Date.now() - 3 * 3600000 ? 'post' : 'pre');
+    return {
+      id: `sportsdb:${event.idEvent}`,
+      source: 'TheSportsDB',
+      sport: sportKey,
+      league: event.strLeague || sportsDbSportName(sportKey),
+      season: event.strSeason,
+      date: dt,
+      timestamp: dt,
+      status: hasScore ? 'Final / Result' : 'Scheduled',
+      statusState: state,
+      statusDetail: event.strStatus || '',
+      venue: event.strVenue || '',
+      homeTeam: event.strHomeTeam,
+      awayTeam: event.strAwayTeam,
+      homeScore,
+      awayScore,
+      markets: [
+        { key: '1', label: '1', odds: null },
+        { key: 'X', label: 'X', odds: null },
+        { key: '2', label: '2', odds: null }
+      ],
+      oddsProvider: null,
+      key: eventKey(event.strHomeTeam, event.strAwayTeam, dt)
+    };
+  }).filter(e => e.homeTeam && e.awayTeam);
+}
+
+function filterSportsMode(events, mode) {
+  const normalized = String(mode || 'all').toLowerCase();
+  if (normalized === 'live') return events.filter(e => e.statusState === 'in' || /live|in progress|half|quarter|period/i.test(`${e.status} ${e.statusDetail}`));
+  if (normalized === 'results') return events.filter(e => e.statusState === 'post' || e.homeScore !== null || e.awayScore !== null);
+  if (normalized === 'upcoming' || normalized === 'highlights') return events.filter(e => e.statusState !== 'post');
+  return events;
+}
+
+async function getSportsEvents({ sport = 'soccer', date = 'today', mode = 'all' }) {
+  const sportKey = String(sport || 'soccer').toLowerCase();
+  const ymd = normalizeDateParam(date);
+  const tasks = [];
+
+  const espn = espnConfig(sportKey);
+  if (espn) {
+    const espnUrl = `https://site.api.espn.com/apis/site/v2/sports/${espn.sport}/${espn.league}/scoreboard?dates=${compactDate(ymd)}`;
+    tasks.push(cachedJson(espnUrl, 45000).then(data => parseEspnEvents(data, sportKey, 'ESPN')).catch(() => []));
+  }
+
+  const sportsDbUrl = `https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${ymd}&s=${encodeURIComponent(sportsDbSportName(sportKey))}`;
+  tasks.push(cachedJson(sportsDbUrl, 180000).then(data => parseSportsDbEvents(data, sportKey)).catch(() => []));
+
+  const lists = await Promise.all(tasks);
+  const merged = [];
+  const seen = new Set();
+  for (const event of lists.flat()) {
+    const key = event.key || event.id;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(event);
+  }
+
+  merged.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+  const filtered = filterSportsMode(merged, mode);
+  return {
+    code: 0,
+    source: 'ESPN + TheSportsDB',
+    note: 'Schedules, scores and available odds are sourced from public sports data providers. Odds appear only when a provider publishes them.',
+    sport: sportKey,
+    date: ymd,
+    mode,
+    total: filtered.length,
+    events: filtered
+  };
+}
+
 app.get('/', (req, res) => {
   res.json({ ok: true, service: 'poseidon-meganodes-backend', dashboard: 'MegaNodes', time: new Date().toISOString() });
 });
 
 app.get('/health', (req, res) => {
   res.json({ ok: true, token_configured: Boolean(TOKEN), data_dir: DATA_DIR, time: new Date().toISOString() });
+});
+
+
+app.get('/sports/events', async (req, res, next) => {
+  try {
+    const data = await getSportsEvents({
+      sport: req.query.sport || 'soccer',
+      date: req.query.date || 'today',
+      mode: req.query.mode || 'all'
+    });
+    res.json(data);
+  } catch (e) { next(e); }
+});
+
+app.get('/sports/live', async (req, res, next) => {
+  try {
+    const data = await getSportsEvents({ sport: req.query.sport || 'soccer', date: req.query.date || 'today', mode: 'live' });
+    res.json(data);
+  } catch (e) { next(e); }
 });
 
 app.get('/api/providers', async (req, res, next) => {
