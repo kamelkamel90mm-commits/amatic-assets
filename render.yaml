@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: poseidon-meganodes-backend
+    env: node
+    plan: free
+    rootDir: backend/render
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MEGANODES_API_TOKEN
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://poseidon-casino-kamel.surge.sh
+      - key: MEGANODES_API_BASE
+        value: https://api-prd-v2.meganodes.net
+      - key: DEFAULT_LANG
+        value: en
+      - key: DEFAULT_RETURN_URL
+        value: https://poseidon-casino-kamel.surge.sh/casino.html
+      - key: REQUIRE_AUTH
+        value: false
+      - key: AUTO_CREATE_USERS
+        value: true
+      - key: MEGANODES_INITIAL_DEPOSIT
+        value: 0
+      - key: DATA_DIR
+        value: /tmp/poseidon-meganodes
+
+# For production user mapping persistence, add a Render persistent disk and set DATA_DIR to its mount path.
+# Disks may require a paid Render plan, so it is not enabled by default.

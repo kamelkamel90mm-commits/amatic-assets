@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Launching game - Poseidon</title>
+  <style>
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-height:100%; background:#02080f; color:#fff; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; }
+    body { display:flex; align-items:center; justify-content:center; padding:24px; }
+    .panel { width:min(440px,100%); text-align:center; background:linear-gradient(180deg,#073a62,#05243e); border:1px solid rgba(255,255,255,.12); border-radius:22px; padding:26px 18px; box-shadow:0 22px 60px rgba(0,0,0,.45); }
+    .spinner { width:58px; height:58px; margin:0 auto 18px; border:5px solid rgba(255,255,255,.18); border-top-color:#13a7dd; border-radius:50%; animation:spin .85s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    h1 { margin:0 0 8px; font-size:22px; }
+    p { margin:7px 0; color:#b8d8ed; line-height:1.45; font-size:14px; }
+    code { display:block; overflow:auto; margin:12px 0; padding:10px; text-align:left; background:rgba(0,0,0,.33); border-radius:10px; color:#ffd36a; font-size:12px; white-space:pre-wrap; }
+    .actions { margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    a, button { appearance:none; border:0; border-radius:999px; padding:11px 14px; color:#fff; background:#1678c3; text-decoration:none; font-weight:700; font-size:13px; cursor:pointer; }
+    .secondary { background:#17364f; }
+    .error .spinner { display:none; }
+    .error h1 { color:#ffb3b3; }
+  </style>
+</head>
+<body>
+  <main id="panel" class="panel">
+    <div class="spinner"></div>
+    <h1 id="title">Launching game...</h1>
+    <p id="message">Preparing a secure MegaNodes game URL.</p>
+    <div id="debug"></div>
+    <div class="actions" id="actions" hidden>
+      <a href="casino.html" class="secondary" target="_top">Back to casino</a>
+      <a href="login.html" target="_top">Login</a>
+    </div>
+  </main>
+
+  <script src="meganodes-config.js"></script>
+  <script>
+    const qs = new URLSearchParams(location.search);
+    const panel = document.getElementById('panel');
+    const titleEl = document.getElementById('title');
+    const messageEl = document.getElementById('message');
+    const debugEl = document.getElementById('debug');
+    const actionsEl = document.getElementById('actions');
+
+    function safeText(value) {
+      return String(value || '').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+    }
+
+    function showError(title, message, details) {
+      panel.classList.add('error');
+      titleEl.textContent = title;
+      messageEl.textContent = message;
+      debugEl.innerHTML = details ? `<code>${safeText(details)}</code>` : '';
+      actionsEl.hidden = false;
+    }
+
+    function getOrCreateAnonymousId() {
+      const key = 'poseidon_anonymous_id';
+      let id = localStorage.getItem(key);
+      if (!id) {
+        const bytes = new Uint8Array(16);
+        crypto.getRandomValues(bytes);
+        id = 'anon_' + Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+        localStorage.setItem(key, id);
+      }
+      return id;
+    }
+
+    function getSupabaseAccessToken() {
+      try {
+        for (const key of Object.keys(localStorage)) {
+          if (!key.startsWith('sb-') || !key.endsWith('-auth-token')) continue;
+          const raw = localStorage.getItem(key);
+          if (!raw) continue;
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.access_token) return parsed.access_token;
+          if (parsed && parsed.currentSession && parsed.currentSession.access_token) return parsed.currentSession.access_token;
+        }
+      } catch (_) {}
+      return '';
+    }
+
+    function getPlayerName() {
+      try {
+        const saved = localStorage.getItem('poseidon_username') || localStorage.getItem('username');
+        if (saved) return saved;
+        for (const key of Object.keys(localStorage)) {
+          if (!key.startsWith('sb-') || !key.endsWith('-auth-token')) continue;
+          const parsed = JSON.parse(localStorage.getItem(key));
+          const user = parsed.user || (parsed.currentSession && parsed.currentSession.user);
+          if (user) return (user.user_metadata && (user.user_metadata.username || user.user_metadata.name)) || user.email || user.id;
+        }
+      } catch (_) {}
+      return 'player_' + getOrCreateAnonymousId().slice(-8);
+    }
+
+    async function launch() {
+      const config = window.POSEIDON_CONFIG || {};
+      const endpoint = config.launchEndpoint;
+      const providerCode = Number(qs.get('provider_code'));
+      const gameSymbol = qs.get('game_symbol');
+      const gameTitle = qs.get('title') || gameSymbol || 'Game';
+      titleEl.textContent = `Launching ${gameTitle}...`;
+
+      if (!providerCode || !gameSymbol) {
+        showError('Missing game data', 'The game link does not contain provider_code and game_symbol.');
+        return;
+      }
+
+      if (!endpoint || endpoint.includes('YOUR-')) {
+        showError(
+          'Backend not configured',
+          'The games catalog is installed, but game launch needs the Render backend URL in meganodes-config.js.',
+          'Set launchEndpoint to: https://poseidon-meganodes-backend.onrender.com/launch-game after Render deploy.'
+        );
+        return;
+      }
+
+      const headers = { 'Content-Type': 'application/json' };
+      const token = getSupabaseAccessToken();
+      if (token) headers.Authorization = 'Bearer ' + token;
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers,
+          credentials: 'include',
+          body: JSON.stringify({
+            provider_code: providerCode,
+            game_symbol: gameSymbol,
+            lang: config.language || 'en',
+            return_url: config.returnUrl || (location.origin + '/casino.html'),
+            anonymous_id: getOrCreateAnonymousId(),
+            player_name: getPlayerName()
+          })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) throw new Error(data.error || data.message || `HTTP ${res.status}`);
+        const launchUrl = data.launch_url || (data.data && data.data.launch_url);
+        if (!launchUrl) throw new Error('Backend did not return launch_url.');
+        location.replace(launchUrl);
+      } catch (err) {
+        showError('Launch failed', 'Could not create the MegaNodes game URL.', err.message || err);
+      }
+    }
+
+    launch();
+  </script>
+</body>
+</html>
