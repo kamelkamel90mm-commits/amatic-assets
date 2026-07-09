@@ -1,1 +1,0 @@
-window.__forzza_mobile_core_loaded=true;
