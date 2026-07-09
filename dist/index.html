@@ -15,101 +15,102 @@
 <script src="/supabase-init.js"></script>
 <script src="balance-display.js"></script>
 <style>
-/* Force visibility of jQuery Mobile page (no SPA) */
+/* Reset jQuery Mobile page to be visible without SPA */
 .ui-loader { display: none !important; }
-body { background-color: #084772 !important; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; overflow-x: hidden; }
+html, body { -webkit-text-size-adjust: none; }
+body.binit, body.binit > .ui-page { background-color: #084772 !important; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; overflow-x: hidden; }
 .ui-page, .ui-page-active { display: block !important; visibility: visible !important; min-height: 100vh !important; background-color: #084772 !important; }
-
-/* Header bar - black, 44px */
 .ui-header { background-color: #000 !important; border: none !important; height: 44px !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important; }
 .ui-header .ui-title { font-size: 16px !important; margin: 0 !important; padding: 13px 0 !important; color: #fff !important; text-shadow: none !important; font-weight: normal !important; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;}
 
-/* Content padding */
-.ui-content { padding: 48px 0 60px 0 !important; min-height: calc(100vh - 104px) !important; }
+/* The forzza1.com home uses .tw-ui-listview > li.normal — match that */
+#homeContent { padding: 0 !important; margin: 0 !important; }
+.tw-ui-listview { list-style: none; padding: 8px !important; margin: 0 !important; }
+.tw-ui-listview li.normal { float: left; width: 30.9333% !important; height: 110px !important; margin: 1.2% !important; background: #1678c3 !important; border-radius: 1em !important; box-shadow: 0 0 9px #111 !important; position: relative !important; box-sizing: border-box !important; overflow: hidden !important; }
+.tw-ui-listview li.normal > .ui-btn { display: block !important; width: 100% !important; height: 100% !important; box-sizing: border-box !important; background: transparent !important; border: none !important; box-shadow: none !important; text-decoration: none !important; padding: 0 !important; margin: 0 !important; }
+.tw-ui-listview li.normal .categoryIconContainer { position: absolute !important; top: 12% !important; left: 50% !important; transform: translateX(-50%) !important; width: 80px !important; height: 80px !important; background-size: 90% !important; background-repeat: no-repeat !important; background-position: center !important; }
+.tw-ui-listview li.normal h2 { position: absolute !important; bottom: 8% !important; left: 0 !important; right: 0 !important; margin: 0 !important; padding: 0 8px !important; text-align: left !important; font-size: 13px !important; color: #fff !important; font-weight: 300 !important; line-height: 1.2 !important; text-shadow: none !important; white-space: normal !important; }
 
-/* 3x4 Grid - matches forzza1.com */
-.tw-grid { background: #fff !important; padding: 0 !important; gap: 0 !important; display: grid !important; grid-template-columns: repeat(3, 1fr) !important; }
-.tw-grid .ui-block { background: #1678c3 !important; width: 100% !important; height: 0 !important; padding-bottom: 100% !important; position: relative !important; border-bottom: 1px solid #0e63ae !important; border-right: 1px solid #0e63ae !important; box-sizing: border-box !important; overflow: hidden !important; }
-.tw-grid .ui-block:nth-child(3n) { border-right: none !important; }
-.tw-grid .ui-block .ui-btn { display: block !important; width: 100% !important; height: 100% !important; position: absolute !important; top: 0; left: 0; padding: 0 !important; margin: 0 !important; background: transparent !important; border: none !important; box-shadow: none !important; text-align: left !important; text-decoration: none !important; }
-.tw-grid .ui-block .lbl { position: absolute !important; bottom: 6px !important; left: 8px !important; font-size: 12px !important; color: #fff !important; font-weight: 300 !important; line-height: 1.2 !important; }
-.tw-grid .categoryIconContainer { width: 70% !important; height: 50% !important; position: absolute !important; top: 18% !important; left: 15% !important; }
-
-/* Footer navbar - 4 columns (logged out), 5 columns (logged in) */
-#main_navbar { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important; background: #000 !important; border-top: 1px solid #333 !important; display: grid !important; height: 54px !important; }
+/* Footer navbar - match forzza1.com exactly */
+#footer { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important; background: #000 !important; border-top: 1px solid #333 !important; height: 54px !important; }
+#main_navbar { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 54px !important; }
 #main_navbar.logged-in { grid-template-columns: repeat(5, 1fr) !important; }
-#main_navbar.logged-out { grid-template-columns: repeat(4, 1fr) !important; }
 #main_navbar .ui-block { position: relative !important; height: 54px !important; }
-#main_navbar a { color: #fff !important; text-decoration: none !important; font-size: 10px !important; text-align: center !important; padding: 0 !important; height: 54px !important; box-sizing: border-box !important; border-right: 1px solid #333 !important; position: relative !important; display: block !important; background-image: url("Content/images/navigation/footerBG.png") !important; background-repeat: repeat-x !important; background-size: auto 54px !important; text-shadow: none !important; line-height: 54px !important; }
+#main_navbar a { display: block !important; color: #fff !important; text-decoration: none !important; font-size: 11px !important; font-weight: normal !important; text-align: center !important; height: 54px !important; box-sizing: border-box !important; border-right: 1px solid #333 !important; position: relative !important; background-image: url("Content/images/navigation/footerBG.png") !important; background-repeat: repeat-x !important; background-size: auto 54px !important; text-shadow: none !important; padding: 36px 0 0 0 !important; line-height: 14px !important; }
 #main_navbar a:last-child { border-right: none !important; }
-#main_navbar a.ui-btn-active { background-image: none !important; background-color: #2a6fb6 !important; }
+#main_navbar a.ui-btn-active, #main_navbar a.active { background-image: none !important; background: linear-gradient(to bottom, #2a6fb6 0%, #205c9e 42%, #205c9e 64%, #205c9e 100%) !important; }
 
-/* Footer icons - 24x24 */
-#main_navbar .footer-icon { position: absolute !important; top: 6px !important; left: 50% !important; margin-left: -12px !important; width: 24px !important; height: 24px !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; }
+/* Footer icons - centered above label */
+#main_navbar .ui-btn-icon-top { position: absolute !important; top: 0 !important; left: 0 !important; right: 0 !important; height: 36px !important; background-size: 24px 24px !important; background-repeat: no-repeat !important; background-position: center 8px !important; display: block !important; }
 
-/* Speech badges (count + stake) */
-#main_navbar span.speech, #main_navbar span.speechAcc { background-color: #079c20 !important; border-radius: 4px !important; color: white !important; font-size: 11px !important; font-weight: 600 !important; padding: 3px 6px !important; position: absolute !important; top: -10px !important; right: 2px !important; z-index: 999 !important; }
-#bsMaxQuota { background-color: #1678c3 !important; font-size: 11px !important; left: -6px !important; padding: 4px 2px !important; width: 32px !important; }
-
-/* Hamburger menu (top right) */
+/* Speech badges (stake + count) */
+#main_navbar span.speech, #main_navbar span.speechAcc { background-color: #079c20 !important; border-radius: 4px !important; color: white !important; font-size: 11px !important; font-weight: 600 !important; padding: 3px 6px !important; position: absolute !important; top: -8px !important; z-index: 999 !important; }
+#bsMaxQuota { background-color: #1678c3 !important; font-size: 11px !important; left: 4px !important; padding: 4px 6px !important; min-width: 32px !important; text-align: center !important; }
+#fbsCounter { right: 4px !important; }
 .hamburger { width: 24px; height: 16px; position: absolute; right: 12px; top: 14px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
 .hamburger span { display: block; height: 3px; width: 100%; background: #fff; }
+/* Content padding to clear fixed header + footer */
+#homeContent { padding: 44px 0 54px 0 !important; }
 </style>
 </head>
-<body class="bnormal">
-<div data-role="page" data-theme="a" id="homePage" class="ui-page ui-page-active">
-  <!-- Header -->
+<body class="binit">
+<div data-role="page" data-theme="a" id="mobileStart_aspx" class="ui-page ui-page-active">
+  <!-- Header (black, 44px fixed) -->
   <div data-role="header" class="ui-header">
     <h1 class="ui-title">Home</h1>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 
-  <!-- Content: 3x4 Grid (12 tiles) -->
-  <div role="main" class="ui-content">
-    <div class="tw-grid">
-      <div class="ui-block"><a href="sports.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000004"></div><span class="lbl">Sports betting</span></a></div>
-      <div class="ui-block"><a href="live.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000000"></div><span class="lbl">Live betting</span></a></div>
-      <div class="ui-block"><a href="highlights.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000002"></div><span class="lbl">Highlights</span></a></div>
+  <!-- Content: 12 tiles as list items (matches forzza1.com) -->
+  <div role="main" class="ui-content" id="homeContent">
+    <ul class="tw-ui-listview">
+      <li class="normal"><a href="sports.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000004"></div><h2>Sports betting</h2></a></li>
+      <li class="normal"><a href="live.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000000"></div><h2>Live betting</h2></a></li>
+      <li class="normal"><a href="highlights.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000002"></div><h2>Highlights</h2></a></li>
 
-      <div class="ui-block"><a href="live-casino.html" class="ui-btn"><div class="categoryIconContainer tw-live-casino"></div><span class="lbl">Live casino</span></a></div>
-      <div class="ui-block"><a href="casino.html" class="ui-btn"><div class="categoryIconContainer tw-slot-casino"></div><span class="lbl">Casino</span></a></div>
-      <div class="ui-block"><a href="virtual-sports.html" class="ui-btn"><div class="categoryIconContainer tw-virtual-sports"></div><span class="lbl">Virtual sports</span></a></div>
+      <li class="normal"><a href="live-casino.html" class="ui-btn"><div class="categoryIconContainer tw-live-casino"></div><h2>Live casino</h2></a></li>
+      <li class="normal"><a href="casino.html" class="ui-btn"><div class="categoryIconContainer tw-slot-casino"></div><h2>Casino</h2></a></li>
+      <li class="normal"><a href="virtual-sports.html" class="ui-btn"><div class="categoryIconContainer tw-virtual-sports"></div><h2>Virtual sports</h2></a></li>
 
-      <div class="ui-block"><a href="results.html" class="ui-btn"><div class="categoryIconContainer tw-results"></div><span class="lbl">Results</span></a></div>
-      <div class="ui-block"><a href="search.html" class="ui-btn"><div class="categoryIconContainer tw-search"></div><span class="lbl">Search</span></a></div>
-      <div class="ui-block"><a href="contact.html" class="ui-btn"><div class="categoryIconContainer tw-contact"></div><span class="lbl">Contact</span></a></div>
+      <li class="normal"><a href="results.html" class="ui-btn"><div class="categoryIconContainer tw-results"></div><h2>Results</h2></a></li>
+      <li class="normal"><a href="search.html" class="ui-btn"><div class="categoryIconContainer tw-search"></div><h2>Search</h2></a></li>
+      <li class="normal"><a href="contact.html" class="ui-btn"><div class="categoryIconContainer tw-contact"></div><h2>Contact</h2></a></li>
 
-      <div class="ui-block"><a href="settings.html" class="ui-btn"><div class="categoryIconContainer tw-settings"></div><span class="lbl">Settings</span></a></div>
-      <div class="ui-block"><a href="info.html" class="ui-btn"><div class="categoryIconContainer tw-msg-info-circle"></div><span class="lbl">Other</span></a></div>
-      <div class="ui-block"><a href="login.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000005"></div><span class="lbl">Login /<br>Registration</span></a></div>
-    </div>
+      <li class="normal"><a href="settings.html" class="ui-btn"><div class="categoryIconContainer tw-settings"></div><h2>Settings</h2></a></li>
+      <li class="normal"><a href="info.html" class="ui-btn"><div class="categoryIconContainer tw-msg-info-circle"></div><h2>Other</h2></a></li>
+      <li class="normal"><a href="login.html" class="ui-btn"><div class="categoryIconContainer tw-sport-1000005"></div><h2>Login /<br/>Registration</h2></a></li>
+    </ul>
+    <div style="clear:both"></div>
   </div>
 
-  <!-- Footer navbar (default: logged-out, 4 cols) -->
-  <div id="main_navbar" data-role="navbar" class="logged-out">
-    <div class="ui-block"><a href="index.html" id="homeLink" class="ui-btn-active"><div class="footer-icon tw-home"></div>Home</a></div>
-    <div class="ui-block"><a href="login.html" id="loginLink"><div class="footer-icon tw-user"></div>Login</a></div>
-    <div class="ui-block"><a href="sports.html" id="betsLink"><span class="speech" id="bsMaxQuota">0.0</span><div class="footer-icon tw-betting"></div>Sports</a></div>
-    <div class="ui-block"><a href="#" id="betslipLink"><span class="speech" id="fbsCounter">0</span><div class="footer-icon tw-betslip"></div>Bet slip</a></div>
+  <!-- Footer (4 cols logged out, 5 cols logged in) -->
+  <div id="footer" data-role="footer" data-position="fixed">
+    <div id="main_navbar" data-role="navbar" class="logged-out">
+      <div class="ui-block"><a href="index.html" id="homeLink" class="ui-btn ui-btn-active"><span class="ui-btn-icon-top ui-btn-icon-top-home"></span>Home</a></div>
+      <div class="ui-block"><a href="login.html" id="loginLink"><span class="ui-btn-icon-top ui-btn-icon-top-login"></span>Login</a></div>
+      <div class="ui-block"><a href="sports.html" id="betsLink"><span class="speech" id="bsMaxQuota">0.0</span><span class="ui-btn-icon-top ui-btn-icon-top-betting"></span>Sports betting</a></div>
+      <div class="ui-block"><a href="#" id="betslipLink"><span class="speech" id="fbsCounter">0</span><span class="ui-btn-icon-top ui-btn-icon-top-betslip"></span>Bet slip</a></div>
+    </div>
   </div>
 </div>
 <script>
-// Switch footer to 5 columns when logged in
+// If user is logged in, change footer to 5 columns and mark Home active differently
 (function(){
   try {
     const s = JSON.parse(localStorage.getItem('forzza_session') || 'null');
-    if (s && s.userId) {
-      const nav = document.getElementById('main_navbar');
-      if (nav) {
-        nav.classList.remove('logged-out');
-        nav.classList.add('logged-in');
-        // Insert Account cell after Home
-        const homeBlk = nav.children[0];
-        const acc = document.createElement('div');
-        acc.className = 'ui-block';
-        acc.innerHTML = '<a href="account.html"><div class="footer-icon tw-account"></div>Account</a>';
-        homeBlk.insertAdjacentElement('afterend', acc);
-      }
+    const nav = document.getElementById('main_navbar');
+    if (s && s.userId && nav) {
+      nav.classList.remove('logged-out');
+      nav.classList.add('logged-in');
+      // Insert Account cell after Home (column 2)
+      const homeBlk = nav.children[0];
+      const acc = document.createElement('div');
+      acc.className = 'ui-block';
+      acc.innerHTML = '<a href="account.html" id="accountLink"><span class="speech speechAcc" id="acc-balance">0.00</span><span class="ui-btn-icon-top ui-btn-icon-top-account"></span>Account</a>';
+      homeBlk.insertAdjacentElement('afterend', acc);
+      // Update balance badge if available
+      const bal = document.getElementById('acc-balance');
+      if (bal && s.balance != null) bal.textContent = Number(s.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
   } catch(e){}
 })();
