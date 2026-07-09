@@ -4,249 +4,118 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>Forzza Mobile Home</title>
-    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-master/d8dcf95cacfe42e58a17c44c3d4953cf/"/>
-    <link rel="stylesheet" type="text/css" href="https://m.forzza1.com/static-content/styles-custom/afad3c25f58b4bb1ac7366c519569fec/"/>
+    <link rel="stylesheet" type="text/css" href="static-content/styles-master.css"/>
+    <link rel="stylesheet" type="text/css" href="static-content/styles-custom.css"/>
     <style>
         .ui-loader { display: none !important; }
-        @font-face {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
-        /* Force Display for static HTML without jQM JS */
         body.ui-mobile-viewport { background-color: #084772 !important; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
         .ui-page, .ui-page-active { display: block !important; visibility: visible !important; min-height: 100vh !important; background-color: #084772 !important; }
         .ui-loader { display: none !important; }
-        
         .ui-header { background-color: #000 !important; border: none !important; height: 44px !important; position: fixed !important; top: 0 !important; width: 100% !important; z-index: 1000 !important; }
         .ui-header .ui-title { font-size: 16px !important; margin: 0 !important; padding: 13px 0 !important; color: #fff !important; text-shadow: none !important; font-weight: normal !important; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;}
-        
-        .ui-content { padding: 44px 0 54px 0 !important; }
-        
-        /* Grid Adjustments */
+        .ui-content { padding: 44px 0 60px 0 !important; }
         .tw-grid { background: #fff !important; padding: 1px 0 !important; gap: 1px !important; display: grid !important; grid-template-columns: repeat(3, 1fr) !important; }
-        .tw-grid .ui-block-a, .tw-grid .ui-block-b, .tw-grid .ui-block-c { 
-            background: #1678c3 !important; 
-            margin-bottom: 0 !important; 
-            border-right: none !important;
-            height: 31vw !important; /* Make it responsive and perfectly square/proportional */
-            max-height: 135px;
-            min-height: 110px;
-            position: relative !important;
-            float: none !important;
-            width: 100% !important;
-            box-sizing: border-box;
+        .tw-grid .ui-block-a, .tw-grid .ui-block-b, .tw-grid .ui-block-c {
+            background: #1678c3 !important; margin-bottom: 0 !important; border-right: none !important;
+            height: 31vw !important; max-height: 135px; min-height: 110px; position: relative !important;
+            float: none !important; width: 100% !important; box-sizing: border-box;
         }
         .tw-grid .ui-btn {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            color: #fff !important;
-            text-shadow: none !important;
-            font-weight: 300 !important;
-            font-size: 13px !important;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            height: 100% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
-            align-items: center !important; /* Center horizontally */
-            text-align: left !important;
-            width: 100% !important;
-            box-sizing: border-box;
-            border-radius: 0 !important;
-            position: relative;
-            text-decoration: none;
+            background: transparent !important; border: none !important; box-shadow: none !important;
+            color: #fff !important; text-shadow: none !important; font-weight: 300 !important;
+            font-size: 13px !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            padding: 0 !important; margin: 0 !important; height: 100% !important;
+            display: flex !important; flex-direction: column !important; justify-content: space-between !important;
+            align-items: center !important; text-align: left !important; width: 100% !important;
+            box-sizing: border-box; border-radius: 0 !important; position: relative; text-decoration: none;
         }
-        .tw-grid .ui-btn span {
-            width: 100%;
-            text-align: left;
-            position: absolute;
-            bottom: 6px;
-            left: 8px;
-            font-size: 12px;
-            color: #e6e6e6; /* slight off-white like original */
-        }
-        
-        /* High-Res Icons */
-        .tw-icon {
-            width: 100%;
-            height: 50%;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: absolute;
-            top: 20%;
-        }
-        
-        /* Exact Original Icons */
-        .icon-sports { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000004.png'); width: 65%; left: 17.5%; top: 22%; }
-        .icon-live { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000000.png'); width: 45%; left: 27.5%; height: 55%; top: 15%; }
-        .icon-highlights { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000002.png'); width: 50%; left: 25%; }
-        .icon-live-casino { background-image: url('https://m.forzza1.com/Content/images/navigation/tw_live_casino_cards_2.png'); width: 48%; left: 26%; }
-        .icon-casino { background-image: url('https://m.forzza1.com/Content/images/navigation/tw_casino_slot.png'); width: 55%; left: 22.5%; }
-        .icon-virtual { background-image: url('https://m.forzza1.com/Content/images/navigation/virtual-sports.png'); width: 65%; left: 17.5%; top: 15%; }
-        .icon-results { background-image: url('https://m.forzza1.com/Content/images/sports/tw-results.png'); width: 42%; left: 29%; top: 22%; }
-        
-        /* High-res Icons for Search, Contact, Settings, Other, Login */
-        .icon-search { background-image: url('https://m.forzza1.com/Content/images/sports/tw-search.png'); width: 50%; left: 25%; top: 20%; }
-        .icon-contact { background-image: url('https://m.forzza1.com/Content/images/sports/tw-contact.png'); width: 52%; left: 24%; top: 24%; }
-        .icon-settings { background-image: url('https://m.forzza1.com/Content/images/navigation/tw-settings.png'); width: 45%; left: 27.5%; top: 20%; }
-        .icon-other { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000003.png'); width: 50%; left: 25%; top: 20%; }
-        .icon-login { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000005.png'); width: 50%; left: 25%; top: 20%; }
+        .tw-grid .ui-btn span { width: 100%; text-align: left; position: absolute; bottom: 6px; left: 8px; font-size: 12px; color: #e6e6e6; }
+        .tw-icon { width: 100%; height: 50%; background-size: contain; background-position: center; background-repeat: no-repeat; position: absolute; top: 20%; }
+        .icon-sports { background-image: url('Content/images/sports/tw-sport-1000004.png'); width: 65%; left: 17.5%; top: 22%; }
+        .icon-live { background-image: url('Content/images/sports/tw-sport-1000000.png'); width: 45%; left: 27.5%; height: 55%; top: 15%; }
+        .icon-highlights { background-image: url('Content/images/sports/tw-sport-1000002.png'); width: 50%; left: 25%; }
+        .icon-live-casino { background-image: url('Content/images/navigation/tw_live_casino_cards_2.png'); width: 48%; left: 26%; }
+        .icon-casino { background-image: url('Content/images/navigation/tw_casino_slot.png'); width: 55%; left: 22.5%; }
+        .icon-mini { background-image: url('Content/images/navigation/tw_mini_games.png'); width: 65%; left: 17.5%; top: 15%; }
+        .icon-results { background-image: url('Content/images/sports/tw-results.png'); width: 42%; left: 29%; top: 22%; }
+        .icon-search { background-image: url('Content/images/sports/tw-search.png'); width: 50%; left: 25%; top: 20%; }
+        .icon-contact { background-image: url('Content/images/sports/tw-contact.png'); width: 52%; left: 24%; top: 24%; }
+        .icon-settings { background-image: url('Content/images/navigation/tw-settings.png'); width: 45%; left: 27.5%; top: 20%; }
+        .icon-other { background-image: url('Content/images/sports/tw-sport-1000003.png'); width: 50%; left: 25%; top: 20%; }
+        .icon-account { background-image: url('Content/images/navigation/tw_account_settings.png'); width: 50%; left: 25%; top: 20%; }
+        .icon-logout { background-image: url('Content/images/navigation/tw_logout.png'); width: 50%; left: 25%; top: 20%; }
+        .icon-login { background-image: url('Content/images/sports/tw-sport-1000005.png'); width: 50%; left: 25%; top: 20%; }
 
-        /* Footer */
+        /* Footer - 5 columns when logged in, 4 when not */
         #main_navbar { position: fixed !important; bottom: 0 !important; width: 100% !important; z-index: 1000 !important; background: #000 !important; border: none !important; border-top: 1px solid #333 !important;}
         #main_navbar .ui-grid-c { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 54px !important; }
-        #main_navbar .ui-block-a, #main_navbar .ui-block-b, #main_navbar .ui-block-c, #main_navbar .ui-block-d {
+        #main_navbar.ui-grid-5col .ui-grid-c { grid-template-columns: repeat(5, 1fr) !important; }
+        #main_navbar .ui-block-a, #main_navbar .ui-block-b, #main_navbar .ui-block-c, #main_navbar .ui-block-d, #main_navbar .ui-block-e {
             float: none !important; width: 100% !important;
         }
-        #main_navbar .ui-btn { border: none !important; border-right: 1px solid #222 !important; background-image: url("https://m.forzza1.com/Content/images/navigation/footerBG.png") !important; background-repeat: repeat-x !important; color: #fff !important; text-shadow: none !important; font-size: 10px !important; padding: 36px 0 0 0 !important; text-align: center !important; height: 100% !important; box-sizing: border-box !important; border-radius: 0 !important; font-weight: normal !important; position: relative; text-decoration: none; display: block;}
-        #main_navbar .ui-block-d .ui-btn { border-right: none !important; }
+        #main_navbar .ui-btn { border: none !important; border-right: 1px solid #222 !important; background-image: url("Content/images/navigation/footerBG.png") !important; background-repeat: repeat-x !important; color: #fff !important; text-shadow: none !important; font-size: 10px !important; padding: 36px 0 0 0 !important; text-align: center !important; height: 100% !important; box-sizing: border-box !important; border-radius: 0 !important; font-weight: normal !important; position: relative; text-decoration: none; display: block;}
+        #main_navbar .ui-block-d .ui-btn, #main_navbar .ui-block-e .ui-btn { border-right: none !important; }
         #main_navbar .ui-btn.active { background-image: none !important; background-color: #222 !important; }
         #main_navbar .footer-icon { position: absolute !important; top: 8px !important; left: 50% !important; margin-left: -12px !important; width: 24px !important; height: 24px !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; }
-        
-        #main_navbar .icon-f-home { background-image: url('https://m.forzza1.com/Content/images/sports/tw-home.png'); }
-        #main_navbar .icon-f-login { background-image: url('https://m.forzza1.com/Content/images/sports/tw-user.png'); }
-        #main_navbar .icon-f-sports { background-image: url('https://m.forzza1.com/Content/images/sports/tw-sport-1000004.png'); width: 32px !important; margin-left: -16px !important; top: 12px !important; height: 16px !important;}
-        #main_navbar .icon-f-betslip { background-image: url('https://m.forzza1.com/Content/images/sports/tw-betslip.png'); width: 20px !important; margin-left: -10px !important;}
 
-        .badges { position: absolute !important; top: 3px !important; right: 8px !important; display: flex !important; gap: 1px !important; }
-        .badge { font-size: 10px !important; font-weight: bold !important; padding: 1px 4px !important; border-radius: 3px !important; color: white !important; }
+        #main_navbar .icon-f-home { background-image: url('Content/images/sports/tw-home.png'); }
+        #main_navbar .icon-f-login { background-image: url('Content/images/sports/tw-user.png'); }
+        #main_navbar .icon-f-account { background-image: url('Content/images/navigation/tw_account_settings.png'); }
+        #main_navbar .icon-f-bets { background-image: url('Content/images/navigation/tw_my_bets.png'); }
+        #main_navbar .icon-f-sports { background-image: url('Content/images/sports/tw-sport-1000004.png'); width: 32px !important; margin-left: -16px !important; top: 12px !important; height: 16px !important;}
+        #main_navbar .icon-f-betslip { background-image: url('Content/images/sports/tw-betslip.png'); width: 20px !important; margin-left: -10px !important;}
+
+        .badges { position: absolute !important; top: 3px !important; right: 4px !important; display: flex !important; gap: 1px !important; }
+        .badge { font-size: 9px !important; font-weight: bold !important; padding: 1px 4px !important; border-radius: 3px !important; color: white !important; }
         .badge-blue { background-color: #1678c3 !important; }
         .badge-green { background-color: #079c20 !important; }
-        
-        .hamburger {
-            width: 24px; height: 16px;
-            position: absolute; right: 12px; top: 14px;
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .hamburger span { display: block; height: 3px; width: 100%; background: #fff; }
 
+        .hamburger { width: 24px; height: 16px; position: absolute; right: 12px; top: 14px; display: flex; flex-direction: column; justify-content: space-between; }
+        .hamburger span { display: block; height: 3px; width: 100%; background: #fff; }
     </style>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>$(document).on("mobileinit", function() { $.mobile.ajaxEnabled = false; $.mobile.hashListeningEnabled = false; $.mobile.pushStateEnabled = false; $.mobile.showPageLoadingMsg = function(){}; $.mobile.hidePageLoadingMsg = function(){}; });</script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <script src="live-effects.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase-init.js"></script>
+<script src="balance-display.js"></script>
+<script src="home-auth.js"></script>
 </head>
 <body class="ui-mobile-viewport ui-overlay-a">
-    <div data-role="page" class="ui-page-active"  class="ui-page ui-page-theme-a ui-page-active">
+    <div data-role="page" class="ui-page-active">
         <div data-role="header" class="ui-header">
             <h1 class="ui-title" role="heading" aria-level="1">Home</h1>
-            <div class="hamburger">
-                <span></span><span></span><span></span>
-            </div>
+            <div class="hamburger"><span></span><span></span><span></span></div>
         </div>
 
         <div role="main" class="ui-content">
             <div class="tw-grid">
-                <div class="ui-block-a">
-                    <a href="sports.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-sports"></div>
-                        <span>Sports betting</span>
-                    </a>
-                </div>
-                <div class="ui-block-b">
-                    <a href="live.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-live"></div>
-                        <span>Live betting</span>
-                    </a>
-                </div>
-                <div class="ui-block-c">
-                    <a href="highlights.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-highlights"></div>
-                        <span>Highlights</span>
-                    </a>
-                </div>
-                
-                <div class="ui-block-a">
-                    <a href="live-casino.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-live-casino"></div>
-                        <span>Live casino</span>
-                    </a>
-                </div>
-                <div class="ui-block-b">
-                    <a href="casino.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-casino"></div>
-                        <span>Casino</span>
-                    </a>
-                </div>
-                <div class="ui-block-c">
-                    <a href="virtual-sports.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-virtual"></div>
-                        <span>Virtual sports</span>
-                    </a>
-                </div>
+                <div class="ui-block-a"><a href="sports.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-sports"></div><span>Sports betting</span></a></div>
+                <div class="ui-block-b"><a href="live.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-live"></div><span>Live betting</span></a></div>
+                <div class="ui-block-c"><a href="highlights.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-highlights"></div><span>Highlights</span></a></div>
 
-                <div class="ui-block-a">
-                    <a href="results.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-results"></div>
-                        <span>Results</span>
-                    </a>
-                </div>
-                <div class="ui-block-b">
-                    <a href="search.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-search"></div>
-                        <span>Search</span>
-                    </a>
-                </div>
-                <div class="ui-block-c">
-                    <a href="contact.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-contact"></div>
-                        <span>Contact</span>
-                    </a>
-                </div>
+                <div class="ui-block-a"><a href="live-casino.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-live-casino"></div><span>Live casino</span></a></div>
+                <div class="ui-block-b"><a href="casino.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-casino"></div><span>Casino</span></a></div>
+                <div class="ui-block-c"><a href="mini-games.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-mini"></div><span>Mini games</span></a></div>
 
-                <div class="ui-block-a">
-                    <a href="settings.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-settings"></div>
-                        <span>Settings</span>
-                    </a>
-                </div>
-                <div class="ui-block-b">
-                    <a href="info.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-other"></div>
-                        <span>Other</span>
-                    </a>
-                </div>
-                <div class="ui-block-c">
-                    <a href="login.html" class="ui-btn" data-ajax="false">
-                        <div class="tw-icon icon-login"></div>
-                        <span style="white-space: pre-wrap; line-height: 1.2;">Login /<br>Registration</span>
-                    </a>
-                </div>
+                <div class="ui-block-a"><a href="results.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-results"></div><span>Results</span></a></div>
+                <div class="ui-block-b"><a href="search.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-search"></div><span>Search</span></a></div>
+                <div class="ui-block-c"><a href="contact.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-contact"></div><span>Contact</span></a></div>
+
+                <div class="ui-block-a" data-tile-role="settings"><a href="settings.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-settings"></div><span>Settings</span></a></div>
+                <div class="ui-block-b" data-tile-role="other"><a href="info.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-other"></div><span>Other</span></a></div>
+                <div class="ui-block-c" data-tile-role="auth"><a href="login.html" class="ui-btn" data-ajax="false"><div class="tw-icon icon-login"></div><span style="white-space: pre-wrap; line-height: 1.2;">Login /<br>Registration</span></a></div>
             </div>
         </div>
 
         <div id="main_navbar" data-role="footer">
-            <div class="ui-grid-c">
-                <div class="ui-block-a">
-                    <a href="index.html" class="ui-btn active" data-ajax="false">
-                        <div class="footer-icon icon-f-home"></div>
-                        Home
-                    </a>
-                </div>
-                <div class="ui-block-b">
-                    <a href="login.html" class="ui-btn" data-ajax="false">
-                        <div class="footer-icon icon-f-login"></div>
-                        Login
-                    </a>
-                </div>
-                <div class="ui-block-c">
-                    <a href="sports.html" class="ui-btn" data-ajax="false">
-                        <div class="footer-icon icon-f-sports"></div>
-                        Sports betting
-                    </a>
-                </div>
-                <div class="ui-block-d">
-                    <a href="#" class="ui-btn" style="position: relative;" data-ajax="false">
-                        <div class="badges">
-                            <div class="badge badge-blue">0.0</div>
-                            <div class="badge badge-green">0</div>
-                        </div>
-                        <div class="footer-icon icon-f-betslip"></div>
-                        Bet slip
-                    </a>
-                </div>
+            <div class="ui-grid-c" id="main_navbar_grid">
+                <div class="ui-block-a"><a href="index.html" class="ui-btn active" data-ajax="false"><div class="footer-icon icon-f-home"></div>Home</a></div>
+                <div class="ui-block-b" data-footer-role="account"><a href="login.html" class="ui-btn" data-ajax="false"><div class="footer-icon icon-f-login"></div>Login</a></div>
+                <div class="ui-block-c" data-footer-role="bets"><a href="my-bets.html" class="ui-btn" data-ajax="false"><div class="footer-icon icon-f-bets"></div>My bets</a></div>
+                <div class="ui-block-d"><a href="sports.html" class="ui-btn" data-ajax="false"><div class="badges"><div class="badge badge-blue" id="bs-stake">0.0</div></div><div class="footer-icon icon-f-sports"></div>Sports betting</a></div>
+                <div class="ui-block-e" data-footer-role="betslip"><a href="#" class="ui-btn" style="position: relative;" data-ajax="false"><div class="badges"><div class="badge badge-green" id="bs-count">0</div></div><div class="footer-icon icon-f-betslip"></div>Bet slip</a></div>
             </div>
         </div>
     </div>

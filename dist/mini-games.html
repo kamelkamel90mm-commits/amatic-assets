@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Mini Games - Forzza</title>
+<link rel="stylesheet" type="text/css" href="static-content/styles-master.css"/>
+<link rel="stylesheet" type="text/css" href="static-content/styles-custom.css"/>
+<style>
+body { background:#084772; color:#fff; font-family:Arial,sans-serif; margin:0; padding:0; }
+header { background:#000; color:#fff; padding:12px 16px; display:flex; align-items:center; }
+header h1 { font-size:18px; margin:0; flex:1; }
+header a { color:#fff; text-decoration:none; font-size:14px; padding:6px 10px; background:#1678c3; border-radius:4px; }
+main { padding:20px 16px; min-height:calc(100vh - 100px); }
+.games-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:16px; }
+.game-card { background:#1678c3; border-radius:8px; padding:16px; text-align:center; cursor:pointer; }
+.game-card .emoji { font-size:36px; }
+.game-card .name { margin-top:8px; font-weight:bold; }
+footer { background:#000; color:#999; padding:12px; text-align:center; font-size:12px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-init.js"></script>
+<script src="balance-display.js"></script>
+</head>
+<body>
+<header><a href="index.html">← Back</a><h1 style="margin-left:10px">Mini Games</h1></header>
+<main>
+<p style="color:#d7efff; font-size:14px; line-height:1.5;">Quick mini games - Crash, Dice, Plinko, Mines, Hi-Lo, Keno, Wheel and more. Tap any game to launch.</p>
+<div class="games-grid">
+<div class="game-card" onclick="launch('crash_test')"><div class="emoji">🚀</div><div class="name">Crash</div></div>
+<div class="game-card" onclick="launch('dice')"><div class="emoji">🎲</div><div class="name">Dice</div></div>
+<div class="game-card" onclick="launch('plinko')"><div class="emoji">🟣</div><div class="name">Plinko</div></div>
+<div class="game-card" onclick="launch('mines')"><div class="emoji">💣</div><div class="name">Mines</div></div>
+<div class="game-card" onclick="launch('hilo')"><div class="emoji">📈</div><div class="name">Hi-Lo</div></div>
+<div class="game-card" onclick="launch('wheel')"><div class="emoji">🎡</div><div class="name">Wheel</div></div>
+<div class="game-card" onclick="launch('keno')"><div class="emoji">🎯</div><div class="name">Keno</div></div>
+<div class="game-card" onclick="launch('coinflip')"><div class="emoji">🪙</div><div class="name">Coin Flip</div></div>
+</div>
+</main>
+<footer>Forzza Mobile - Mini Games</footer>
+<script>
+function launch(name) {
+  // For now route to the existing crash_test mini game as a demo
+  if (name === 'crash_test') { window.location.href = 'games/amatic/crash_test/'; return; }
+  alert('Game "' + name + '" will be available soon. Try Crash for now.');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>My Bets - Forzza</title>
+<link rel="stylesheet" type="text/css" href="static-content/styles-master.css"/>
+<link rel="stylesheet" type="text/css" href="static-content/styles-custom.css"/>
+<style>
+body { background:#084772; color:#fff; font-family:Arial,sans-serif; margin:0; padding:0; }
+header { background:#000; color:#fff; padding:12px 16px; display:flex; align-items:center; }
+header h1 { font-size:18px; margin:0; flex:1; }
+header a { color:#fff; text-decoration:none; font-size:14px; padding:6px 10px; background:#1678c3; border-radius:4px; }
+main { padding:20px 16px; }
+.bet-card { background:rgba(255,255,255,0.08); border-left:4px solid #1678c3; padding:12px; margin-bottom:8px; border-radius:4px; }
+.bet-card.win { border-left-color: #079c20; }
+.bet-card.lose { border-left-color: #d93030; }
+.bet-card .row { display:flex; justify-content:space-between; }
+.bet-card .amount { font-size:18px; font-weight:bold; }
+.bet-card .meta { font-size:11px; color:#9ec5e6; }
+.empty { color:#9ec5e6; text-align:center; padding:40px 16px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-init.js"></script>
+<script src="balance-display.js"></script>
+</head>
+<body>
+<header><a href="index.html">← Back</a><h1 style="margin-left:10px">My Bets</h1></header>
+<main id="bets-list"><div class="empty">Loading your bets...</div></main>
+<script>
+(async function(){
+  const session = (() => { try { return JSON.parse(localStorage.getItem('forzza_session')||'null'); } catch(e){ return null; } })();
+  const list = document.getElementById('bets-list');
+  if (!session || !session.userId) {
+    list.innerHTML = '<div class="empty">Please <a href="login.html" style="color:#11a7dd">log in</a> to view your bets.</div>';
+    return;
+  }
+  const { data, error } = await window.supabase.from('transactions').select('id, type, amount, status, created_at, game_id').eq('user_id', session.userId).order('created_at', { ascending: false }).limit(50);
+  if (error) { list.innerHTML = '<div class="empty">Error loading bets.</div>'; return; }
+  if (!data || data.length === 0) { list.innerHTML = '<div class="empty">No bets yet. <a href="casino.html" style="color:#11a7dd">Browse games</a> to start playing.</div>'; return; }
+  list.innerHTML = data.map(b => {
+    const cls = b.type === 'win' ? 'win' : (b.type === 'bet' ? 'lose' : '');
+    return `<div class="bet-card ${cls}">
+      <div class="row"><div>${b.type}</div><div class="amount">€ ${Number(b.amount||0).toFixed(2)}</div></div>
+      <div class="row meta"><div>${new Date(b.created_at).toLocaleString()}</div><div>${b.status||''}</div></div>
+    </div>`;
+  }).join('');
+})();
+</script>
+</body>
+</html>

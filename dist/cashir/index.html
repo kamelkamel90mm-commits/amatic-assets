@@ -22,6 +22,7 @@
 <script src="/dashboard-live.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase-init.js"></script>
+<script src="/cashier-panel.js"></script>
 </head>
 <body class="bg-dark text-slate-300 font-sans antialiased pb-20">
     
@@ -78,51 +79,11 @@
         <!-- Pending Requests -->
         <div class="flex justify-between items-center mb-3">
             <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pending Requests</h2>
-            <span class="bg-alert text-white text-[9px] px-2 py-0.5 rounded-full">2 New</span>
+            <span class="bg-alert text-white text-[9px] px-2 py-0.5 rounded-full pending-count">0 New</span>
         </div>
         
-        <div class="space-y-3">
-            <!-- Request Card 1 -->
-            <div class="glass-panel p-3 rounded-xl border-l-4 border-alert">
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-down text-alert"></i>
-                        <span class="text-sm font-bold text-white">Withdrawal</span>
-                    </div>
-                    <span class="text-xs text-slate-400">2 mins ago</span>
-                </div>
-                <div class="flex justify-between items-end">
-                    <div>
-                        <div class="text-xs text-slate-300">User: <span class="font-medium text-white">kamel90</span></div>
-                        <div class="text-lg font-bold text-white">€ 200.00</div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="w-8 h-8 rounded bg-slate-700 text-white"><i class="fa-solid fa-xmark"></i></button>
-                        <button class="w-8 h-8 rounded bg-accent text-white"><i class="fa-solid fa-check"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Request Card 2 -->
-            <div class="glass-panel p-3 rounded-xl border-l-4 border-accent">
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-up text-accent"></i>
-                        <span class="text-sm font-bold text-white">Deposit</span>
-                    </div>
-                    <span class="text-xs text-slate-400">15 mins ago</span>
-                </div>
-                <div class="flex justify-between items-end">
-                    <div>
-                        <div class="text-xs text-slate-300">User: <span class="font-medium text-white">ali_tunis</span></div>
-                        <div class="text-lg font-bold text-white">€ 50.00</div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="w-8 h-8 rounded bg-slate-700 text-white"><i class="fa-solid fa-xmark"></i></button>
-                        <button class="w-8 h-8 rounded bg-accent text-white"><i class="fa-solid fa-check"></i></button>
-                    </div>
-                </div>
-            </div>
+        <div class="space-y-3" id="cashier-requests">
+            <div class="text-center text-slate-400 text-sm py-4">Loading pending requests...</div>
         </div>
     </main>
 

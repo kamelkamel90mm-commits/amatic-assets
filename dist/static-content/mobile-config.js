@@ -1,0 +1,1 @@
+(function(){if(typeof $.mobile==='undefined'){$.mobile={}}$.mobile.ajaxEnabled=false;$.mobile.hashListeningEnabled=false;$.mobile.pushStateEnabled=false;$.mobile.showPageLoadingMsg=function(){};$.mobile.hidePageLoadingMsg=function(){};})();
