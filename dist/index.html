@@ -1,25 +1,9 @@
 <!DOCTYPE html>
-<html id="twHtml" lang="en">
+<html lang="en">
 <head>
-<noscript>
-<meta http-equiv="refresh" content="0; URL=noscript.aspx" />
-</noscript>
 <meta charset="utf-8" />
-<title>Forzza - Mobile Betting</title>
-<meta content="index,follow,snippet" name="googlebot" />
-<meta content="index,follow" name="robots" />
-<meta content="notranslate" name="google" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<meta name='apple-mobile-web-app-capable' content='yes' />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta id="appleTitle" name="apple-mobile-web-app-title" content="Forzza Mobile" />
-<meta content="telephone=no" name="format-detection" />
-<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
-<link rel="apple-touch-icon" href="Content/images/other/logo-touch.png" />
-<link rel="apple-touch-icon" sizes="76x76" href="Content/images/other/logo-touch76.png" />
-<link rel="apple-touch-icon" sizes="120x120" href="Content/images/other/logo-touch120.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="Content/images/other/logo-touch152.png" />
-<link type="image/x-icon" rel="Shortcut Icon" href="Content/images/app-snapshot.ico" />
+<title>Forzza - Mobile Betting</title>
 <link rel="stylesheet" type="text/css" href="static-content/styles-master/d8dcf95cacfe42e58a17c44c3d4953cf/d8dcf95cacfe42e58a17c44c3d4953cf.css"/>
 <link rel="stylesheet" type="text/css" href="static-content/styles-custom/afad3c25f58b4bb1ac7366c519569fec/afad3c25f58b4bb1ac7366c519569fec.css"/>
 <link rel="stylesheet" type="text/css" href="static-content/gaming-styles/acbeef27218247e5b1cb43b555c19eca/acbeef27218247e5b1cb43b555c19eca.css"/>
@@ -30,43 +14,76 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase-init.js"></script>
 <script src="balance-display.js"></script>
+<style>
+.ui-loader { display: none !important; }
+body { background-color: #084772 !important; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
+.ui-page, .ui-page-active { display: block !important; visibility: visible !important; min-height: 100vh !important; background-color: #084772 !important; }
+.ui-header { background-color: #000 !important; border: none !important; height: 44px !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important; }
+.ui-header .ui-title { font-size: 16px !important; margin: 0 !important; padding: 13px 0 !important; color: #fff !important; text-shadow: none !important; font-weight: normal !important; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;}
+.ui-content { padding: 50px 4px 64px 4px !important; }
+.tw-grid { background: #fff !important; padding: 1px 0 !important; gap: 1px !important; display: grid !important; grid-template-columns: repeat(3, 1fr) !important; max-width: 500px; margin: 0 auto; }
+.tw-grid .cell { background: #1678c3 !important; aspect-ratio: 1/1; position: relative !important; }
+.tw-grid .cell a { color: #fff !important; text-decoration: none !important; display: block !important; width: 100% !important; height: 100% !important; position: relative; }
+.tw-grid .ic { position: absolute; top: 18%; left: 50%; transform: translateX(-50%); width: 60%; height: 50%; background-size: contain; background-position: center; background-repeat: no-repeat; }
+.tw-grid .lbl { position: absolute; bottom: 6px; left: 8px; font-size: 12px; color: #e6e6e6; font-weight: 300; }
+.icon-sports { background-image: url('Content/images/sports/tw-sport-1000004.png'); }
+.icon-live { background-image: url('Content/images/sports/tw-sport-1000000.png'); }
+.icon-highlights { background-image: url('Content/images/sports/tw-sport-1000002.png'); }
+.icon-live-casino { background-image: url('Content/images/navigation/tw_live_casino_cards_2.png'); }
+.icon-casino { background-image: url('Content/images/navigation/tw_casino_slot.png'); }
+.icon-virtual { background-image: url('Content/images/navigation/virtual-sports.png'); }
+.icon-results { background-image: url('Content/images/sports/tw-results.png'); }
+.icon-search { background-image: url('Content/images/sports/tw-search.png'); }
+.icon-contact { background-image: url('Content/images/sports/tw-contact.png'); }
+.icon-settings { background-image: url('Content/images/navigation/tw-settings.png'); }
+.icon-other { background-image: url('Content/images/sports/tw-sport-1000003.png'); }
+.icon-login { background-image: url('Content/images/sports/tw-sport-1000005.png'); }
+
+/* Footer */
+#main_navbar { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important; background: #000 !important; border-top: 1px solid #333 !important; display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 54px !important; }
+#main_navbar a { color: #fff !important; text-decoration: none !important; font-size: 10px !important; text-align: center !important; padding: 36px 0 0 0 !important; height: 100% !important; box-sizing: border-box !important; border-right: 1px solid #222 !important; position: relative !important; display: block !important; background-image: url("Content/images/navigation/footerBG.png") !important; background-repeat: repeat-x !important; background-size: auto 100%; text-shadow: none !important; }
+#main_navbar a:last-child { border-right: none !important; }
+#main_navbar a.active { background-image: none !important; background-color: #222 !important; }
+#main_navbar .fic { position: absolute !important; top: 8px !important; left: 50% !important; margin-left: -12px !important; width: 24px !important; height: 24px !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; }
+#main_navbar .fic-home { background-image: url('Content/images/sports/tw-home.png'); }
+#main_navbar .fic-login { background-image: url('Content/images/sports/tw-user.png'); }
+#main_navbar .fic-sports { background-image: url('Content/images/sports/tw-sport-1000004.png'); width: 32px !important; margin-left: -16px !important; top: 12px !important; height: 16px !important; }
+#main_navbar .fic-betslip { background-image: url('Content/images/sports/tw-betslip.png'); width: 20px !important; margin-left: -10px !important; }
+.badge { position: absolute; top: 3px; right: 6px; font-size: 10px; font-weight: bold; padding: 1px 5px; border-radius: 3px; color: white; }
+.badge-blue { background-color: #1678c3; }
+.badge-green { background-color: #079c20; }
+.hamburger { width: 24px; height: 16px; position: absolute; right: 12px; top: 14px; display: flex; flex-direction: column; justify-content: space-between; }
+.hamburger span { display: block; height: 3px; width: 100%; background: #fff; }
+</style>
 </head>
 <body>
-<!-- The original forzza1.com SPA loads everything via JS. We render a fallback
-     home page with the same visual identity (icons, grid, footer) so the site
-     is usable on Surge even without the SPA backend. The original scripts
-     are loaded but the SPA expects server endpoints that we don't have. -->
-<div id="Loading_aspx" data-role="page" data-url="Loading.aspx" data-theme="a" data-enhance="false" class="ui-page ui-page-active" tabindex="0" style="position: relative; min-height: 100%;">
-<style>
-#homeGrid { background: #084772; min-height: 100vh; padding: 50px 8px 70px 8px; }
-#homeGrid .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #fff; margin-bottom: 1px; }
-#homeGrid .cell { background: #1678c3; aspect-ratio: 1/1; position: relative; display: flex; align-items: center; justify-content: center; }
-#homeGrid .cell a { color: #fff; text-decoration: none; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px; }
-#homeGrid .cell .ic { width: 60%; height: 60%; background-size: contain; background-position: center; background-repeat: no-repeat; margin-bottom: 4px; }
-#homeGrid .cell .lbl { position: absolute; bottom: 6px; left: 8px; font-size: 12px; color: #e6e6e6; font-family: 'Helvetica Neue', Arial, sans-serif; }
-</style>
-<div id="homeGrid">
-  <div class="row">
-    <div class="cell"><a href="sports.html"><div class="ic" style="background-image:url('Content/images/sports/tw-sport-1000004.png')"></div><span class="lbl">Sports betting</span></a></div>
-    <div class="cell"><a href="live.html"><div class="ic" style="background-image:url('Content/images/sports/tw-sport-1000000.png')"></div><span class="lbl">Live betting</span></a></div>
-    <div class="cell"><a href="highlights.html"><div class="ic" style="background-image:url('Content/images/sports/tw-sport-1000002.png')"></div><span class="lbl">Highlights</span></a></div>
+<div data-role="page" class="ui-page-active" id="homePage">
+  <div data-role="header" class="ui-header">
+    <h1 class="ui-title">Home</h1>
+    <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
-  <div class="row">
-    <div class="cell"><a href="live-casino.html"><div class="ic" style="background-image:url('Content/images/navigation/tw_live_casino_cards_2.png')"></div><span class="lbl">Live casino</span></a></div>
-    <div class="cell"><a href="casino.html"><div class="ic" style="background-image:url('Content/images/navigation/tw_casino_slot.png')"></div><span class="lbl">Casino</span></a></div>
-    <div class="cell"><a href="virtual-sports.html"><div class="ic" style="background-image:url('Content/images/navigation/virtual-sports.png')"></div><span class="lbl">Virtual sports</span></a></div>
+  <div role="main" class="ui-content">
+    <div class="tw-grid">
+      <div class="cell"><a href="sports.html"><div class="ic icon-sports"></div><span class="lbl">Sports betting</span></a></div>
+      <div class="cell"><a href="live.html"><div class="ic icon-live"></div><span class="lbl">Live betting</span></a></div>
+      <div class="cell"><a href="highlights.html"><div class="ic icon-highlights"></div><span class="lbl">Highlights</span></a></div>
+      <div class="cell"><a href="live-casino.html"><div class="ic icon-live-casino"></div><span class="lbl">Live casino</span></a></div>
+      <div class="cell"><a href="casino.html"><div class="ic icon-casino"></div><span class="lbl">Casino</span></a></div>
+      <div class="cell"><a href="virtual-sports.html"><div class="ic icon-virtual"></div><span class="lbl">Virtual sports</span></a></div>
+      <div class="cell"><a href="results.html"><div class="ic icon-results"></div><span class="lbl">Results</span></a></div>
+      <div class="cell"><a href="search.html"><div class="ic icon-search"></div><span class="lbl">Search</span></a></div>
+      <div class="cell"><a href="contact.html"><div class="ic icon-contact"></div><span class="lbl">Contact</span></a></div>
+      <div class="cell"><a href="settings.html"><div class="ic icon-settings"></div><span class="lbl">Settings</span></a></div>
+      <div class="cell"><a href="info.html"><div class="ic icon-other"></div><span class="lbl">Other</span></a></div>
+      <div class="cell"><a href="login.html"><div class="ic icon-login"></div><span class="lbl">Login /<br>Registration</span></a></div>
+    </div>
   </div>
-  <div class="row">
-    <div class="cell"><a href="results.html"><div class="ic" style="background-image:url('Content/images/sports/tw-results.png')"></div><span class="lbl">Results</span></a></div>
-    <div class="cell"><a href="search.html"><div class="ic" style="background-image:url('Content/images/sports/tw-search.png')"></div><span class="lbl">Search</span></a></div>
-    <div class="cell"><a href="contact.html"><div class="ic" style="background-image:url('Content/images/sports/tw-contact.png')"></div><span class="lbl">Contact</span></a></div>
+  <div id="main_navbar">
+    <a href="index.html" class="active"><div class="fic fic-home"></div>Home</a>
+    <a href="login.html"><div class="fic fic-login"></div>Login</a>
+    <a href="sports.html"><div class="fic fic-sports"></div>Sports betting</a>
+    <a href="#"><span class="badge badge-blue">0.0</span><span class="badge badge-green">0</span><div class="fic fic-betslip"></div>Bet slip</a>
   </div>
-  <div class="row">
-    <div class="cell"><a href="settings.html"><div class="ic" style="background-image:url('Content/images/navigation/tw-settings.png')"></div><span class="lbl">Settings</span></a></div>
-    <div class="cell"><a href="info.html"><div class="ic" style="background-image:url('Content/images/sports/tw-sport-1000003.png')"></div><span class="lbl">Other</span></a></div>
-    <div class="cell"><a href="login.html"><div class="ic" style="background-image:url('Content/images/sports/tw-sport-1000005.png')"></div><span class="lbl">Login /<br/>Registration</span></a></div>
-  </div>
-</div>
 </div>
 </body>
 </html>
